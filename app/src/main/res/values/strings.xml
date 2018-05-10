@@ -5,5 +5,12 @@
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="nome">Name</string>
+    <string name="endereco">Address</string>
+    <string name="rg">Id Number</string>
+    <string name="cpf">CPF</string>
+    <string name="dataNascimento">Birthday</string>
+    <string name="cadastrar">Register</string>
+    <string name="informeDados">Enter your data</string>
 
 </resources>

@@ -1,12 +1,14 @@
 package com.example.vitoroliveira.barber.pessoa;
 
+import com.example.vitoroliveira.barber.estado.Estado;
+
 public abstract class Pessoa {
     private String nome;
     private String cpf;
     private String rg;
     private String endereco;
     private String dataNascimento;
-    private String estado;
+    private Estado estado;
 
     public String getNome() {
         return nome;
@@ -48,11 +50,11 @@ public abstract class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 }

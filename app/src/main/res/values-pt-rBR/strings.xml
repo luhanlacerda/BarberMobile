@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Side Menu</string>
+    <string name="nome">Nome</string>
+    <string name="drawer_close">Fechar</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="action_settings">Configuracoes</string>
+    <string name="endereco">Endereco</string>
+    <string name="rg">Rg</string>
+    <string name="cpf">CPF</string>
+    <string name="dataNascimento">Data de Nascimento</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="informeDados">Insira seus dados</string>
+</resources>
