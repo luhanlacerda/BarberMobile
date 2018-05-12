@@ -12,5 +12,8 @@
     <string name="dataNascimento">Birthday</string>
     <string name="cadastrar">Register</string>
     <string name="informeDados">Enter your data</string>
+    <string name="valor">Price</string>
+    <string name="btnPlus">+</string>
+    <string name="usuario">User</string>
 
 </resources>

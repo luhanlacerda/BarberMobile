@@ -11,4 +11,6 @@
     <string name="dataNascimento">Data de Nascimento</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="informeDados">Insira seus dados</string>
+    <string name="valor">Valor</string>
+    <string name="usuario">Usuario</string>
 </resources>
