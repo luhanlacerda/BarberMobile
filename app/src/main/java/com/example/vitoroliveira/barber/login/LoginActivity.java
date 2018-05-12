@@ -1,13 +1,15 @@
-package com.example.vitoroliveira.barber.funcionario;
+package com.example.vitoroliveira.barber.login;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FuncionarioActivity extends AppCompatActivity {
+import com.example.vitoroliveira.barber.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_funcionario);
+        setContentView(R.layout.activity_login);
     }
 }

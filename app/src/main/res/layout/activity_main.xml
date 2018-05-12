@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
+            android:background="?attr/colorPrimary"
+            android:padding="0dp"/>
 
     </io.codetail.widget.RevealFrameLayout>
 

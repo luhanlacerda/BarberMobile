@@ -11,4 +11,14 @@
     <string name="dataNascimento">Data de Nascimento</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="informeDados">Insira seus dados</string>
+    <string name="btn_forgot_password">Esqueceu a senha?</string>
+    <string name="hint_senha">Senha</string>
+    <string name="btn_login">Login</string>
+    <string name="hint_email">Email</string>
+    <string name="btn_link_to_register">Não é um cliente? Cadastra-se no Barber agora!</string>
+    <string name="btn_link_to_login">Já sou cadastrado. Efetuar login!</string>
+    <string name="lbl_forgot_password">Esqueceu a senha?</string>
+    <string name="forgot_password_msg">Apenas precisamos da confirmação do Email para ser enviado para você os passos para redefinir a senha</string>
+    <string name="btn_back"><![CDATA[<< BACK]]></string>
+    <string name="btn_reset_password">Redefinir Senha</string>
 </resources>
