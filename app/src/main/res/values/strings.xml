@@ -15,5 +15,6 @@
     <string name="valor">Price</string>
     <string name="btnPlus">+</string>
     <string name="usuario">User</string>
+    <string name="senha">Password</string>
 
 </resources>

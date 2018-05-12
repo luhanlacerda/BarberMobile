@@ -21,20 +21,32 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/edit_text_adm_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/nome" />
+            android:hint="@string/usuario" />
 
         <EditText
+            android:id="@+id/edit_text_senha_adm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/valor" />
+            android:hint="@string/senha" />
+
+        <Button
+            android:id="@+id/button_cadastrar_adm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/cadastrar"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -22,6 +22,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/edit_text_servico_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -30,12 +31,23 @@
             android:hint="@string/nome" />
 
         <EditText
+            android:id="@+id/edit_text_servico_preco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:hint="@string/valor" />
+
+        <Button
+            android:id="@+id/button_cadastrar_servico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/cadastrar"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
