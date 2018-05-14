@@ -5,12 +5,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".cliente.CadastroClienteActivity">
+        tools:context=".servico.ServicoActivity">
 
         <TextView
             android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edit_text_cliente_nome"
+            android:id="@+id/edit_text_servico_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -32,43 +31,16 @@
             android:hint="@string/nome" />
 
         <EditText
-            android:id="@+id/edit_text_cliente_rg"
+            android:id="@+id/edit_text_servico_preco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/rg" />
-
-        <EditText
-            android:id="@+id/edit_text_cliente_cpf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:hint="@string/cpf" />
-
-        <EditText
-            android:id="@+id/edit_text_cliente_endereco"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:hint="@string/endereco" />
-
-        <EditText
-            android:id="@+id/edit_text_cliente_dtNascimento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:hint="@string/dataNascimento" />
+            android:hint="@string/valor" />
 
         <Button
-            android:id="@+id/button_cadastrar_cliente"
+            android:id="@+id/button_cadastrar_servico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -78,4 +50,5 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
 </ScrollView>
