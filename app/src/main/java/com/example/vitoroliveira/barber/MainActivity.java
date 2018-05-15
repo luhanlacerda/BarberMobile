@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
         contentFragment = ContentFragment.newInstance(R.drawable.content_music);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
         drawerLayout = findViewById(R.id.drawer_layout);

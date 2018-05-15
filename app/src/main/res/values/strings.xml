@@ -12,7 +12,6 @@
     <string name="dataNascimento">Birthday</string>
     <string name="cadastrar">Register</string>
     <string name="informeDados">Enter your data</string>
-<<<<<<< HEAD
     <string name="btn_forgot_password">Forgot password?</string>
     <string name="btn_link_to_register">Not a customer? Get register in Barber now!</string>
     <string name="btn_link_to_login">Already registered. Login me!</string>
@@ -23,11 +22,9 @@
     <string name="forgot_password_msg">We just need you registered Email id to sent you password reset instructions.</string>
     <string name="btn_reset_password">Reset Password</string>
     <string name="btn_back"><![CDATA[<< BACK]]></string>
-=======
     <string name="valor">Price</string>
     <string name="btnPlus">+</string>
     <string name="usuario">User</string>
     <string name="senha">Password</string>
->>>>>>> f21e02f37d6582392788416c5a8c8b73e0073250
 
 </resources>

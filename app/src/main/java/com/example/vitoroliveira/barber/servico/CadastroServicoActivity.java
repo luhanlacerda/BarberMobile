@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.vitoroliveira.barber.R;
 
-public class ServicoActivity extends AppCompatActivity {
+public class CadastroServicoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

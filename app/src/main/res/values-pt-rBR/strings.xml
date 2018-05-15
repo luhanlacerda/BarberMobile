@@ -11,7 +11,6 @@
     <string name="dataNascimento">Data de Nascimento</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="informeDados">Insira seus dados</string>
-<<<<<<< HEAD
     <string name="btn_forgot_password">Esqueceu a senha?</string>
     <string name="hint_senha">Senha</string>
     <string name="btn_login">Login</string>
@@ -22,10 +21,8 @@
     <string name="forgot_password_msg">Apenas precisamos da confirmação do Email para ser enviado para você os passos para redefinir a senha</string>
     <string name="btn_back"><![CDATA[<< BACK]]></string>
     <string name="btn_reset_password">Redefinir Senha</string>
-=======
     <string name="valor">Valor</string>
     <string name="usuario">Usuario</string>
     <string name="btnPlus">+</string>
     <string name="senha">Senha</string>
->>>>>>> f21e02f37d6582392788416c5a8c8b73e0073250
 </resources>
