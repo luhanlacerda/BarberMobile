@@ -3,12 +3,21 @@ package com.example.vitoroliveira.barber.pessoa;
 import com.example.vitoroliveira.barber.estado.Estado;
 
 public abstract class Pessoa {
+    private String email;
     private String nome;
     private String cpf;
     private String rg;
     private String endereco;
     private String dataNascimento;
     private Estado estado;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getNome() {
         return nome;

@@ -1,8 +1,8 @@
 package com.example.vitoroliveira.barber.funcionario;
 
-import com.example.vitoroliveira.barber.pessoa.Pessoa;
+import com.example.vitoroliveira.barber.pessoa.User;
 
-public class Funcionario extends Pessoa {
+public class Funcionario extends User {
     private int id;
 
     public int getId() {
