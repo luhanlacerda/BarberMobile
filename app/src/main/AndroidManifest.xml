@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vitoroliveira.barber">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity"></activity>
-        <activity android:name=".login.ResetActivity"></activity>
+        <activity android:name=".login.ResetActivity"/>
         <activity android:name=".funcionario.CasdastroFuncionarioActivity" />
         <activity android:name=".login.SingupActivity" />
         <activity android:name=".cliente.CadastroClienteActivity" />
@@ -25,7 +28,7 @@
         <activity android:name=".cliente.ListClienteActivity" />
         <activity android:name=".servico.ListServicoActivity" />
         <activity android:name=".administrador.CadastroAdministradorActivity" />
-        <activity android:name=".administrador.ListAdministradorActivity"></activity>
+        <activity android:name=".administrador.ListAdministradorActivity"/>
     </application>
 
 </manifest>
