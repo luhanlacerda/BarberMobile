@@ -9,23 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity"></activity>
-        <activity android:name=".login.ResetActivity"></activity>
-        <activity android:name=".funcionario.CasdastroFuncionarioActivity" />
-        <activity android:name=".login.SingupActivity" />
-        <activity android:name=".cliente.CadastroClienteActivity" />
-        <activity android:name=".servico.CadastroServicoActivity" />
-        <activity android:name=".cliente.ListClienteActivity" />
-        <activity android:name=".servico.ListServicoActivity" />
-        <activity android:name=".administrador.CadastroAdministradorActivity" />
-        <activity android:name=".administrador.ListAdministradorActivity"></activity>
+        <activity android:name=".view.LoginActivity"></activity>
+        <activity android:name=".view.ResetActivity"></activity>
+        <activity android:name=".view.SingupActivity" />
+        <activity android:name=".view.CadastroClienteActivity" />
+        <activity android:name=".view.CadastroServicoActivity" />
+        <activity android:name=".view.ListClienteActivity" />
+        <activity android:name=".view.ListServicoActivity" />
     </application>
 
 </manifest>
