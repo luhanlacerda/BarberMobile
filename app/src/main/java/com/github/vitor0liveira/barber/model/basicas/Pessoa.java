@@ -13,8 +13,6 @@ public abstract class Pessoa {
     private String senha;
     private boolean blocked;
 
-
-
     public String getEmail() {
         return email;
     }
