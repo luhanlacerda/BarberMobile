@@ -1,5 +1,7 @@
 package com.github.vitor0liveira.barber.controller;
 
+import android.content.Context;
+
 import com.github.vitor0liveira.barber.model.DAOCliente;
 import com.github.vitor0liveira.barber.model.basicas.Cliente;
 
@@ -15,6 +17,12 @@ public class NegocioCliente implements INegocioCliente {
     private static String ERRO_EMAIL = "E-mail inválido";
     private static String ERRO_ENDERECO = "Endereco inválido";
     private static String ERRO_ID = "ID inválido";
+
+    private Context ctx;
+
+    public NegocioCliente(Context ctx) {
+        this.ctx = ctx;
+    }
 
     @Override
     public void insert(Cliente cliente) throws Exception {
@@ -46,6 +54,8 @@ public class NegocioCliente implements INegocioCliente {
         if (cliente.getNome().isEmpty()){
             throw new Exception(ERRO_NOME);
         }
+
+        new DAOCliente(ctx).insert(cliente);
 
     }
 
@@ -80,7 +90,7 @@ public class NegocioCliente implements INegocioCliente {
             throw new Exception(ERRO_NOME);
         }
 
-        new DAOCliente().insert(cliente);
+        new DAOCliente(ctx).update(cliente);
     }
 
     @Override
@@ -90,47 +100,12 @@ public class NegocioCliente implements INegocioCliente {
             throw new Exception(ERRO_ID);
         }
 
-        new DAOCliente().remove(cliente);
+        new DAOCliente(ctx).remove(cliente);
 
     }
 
     @Override
-    public void refresh(Cliente cliente) throws Exception {
-
-        if (cliente.getCpf().isEmpty()){
-            throw new Exception(ERRO_CPF);
-        }
-
-        if (cliente.getRg().isEmpty()){
-            throw new Exception(ERRO_RG);
-        }
-
-        if (cliente.getSenha().isEmpty()){
-            throw new Exception(ERRO_SENHA);
-        }
-
-        if (cliente.getDataNascimento() == null){
-            throw new Exception(ERRO_DATA);
-        }
-
-        if (cliente.getEmail().isEmpty()){
-            throw new Exception(ERRO_EMAIL);
-        }
-
-        if (cliente.getEndereco().isEmpty()){
-            throw new Exception(ERRO_ENDERECO);
-        }
-
-        if (cliente.getNome().isEmpty()){
-            throw new Exception(ERRO_NOME);
-        }
-
-        new DAOCliente().refresh(cliente);
-
-    }
-
-    @Override
-    public List<Cliente> getAll() throws Exception {
-        return new DAOCliente().getAll();
+    public List<Cliente> getClientes() throws Exception {
+        return new DAOCliente(ctx).getClientes();
     }
 }
