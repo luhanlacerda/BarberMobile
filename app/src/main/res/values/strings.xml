@@ -26,5 +26,10 @@
     <string name="btnPlus">+</string>
     <string name="usuario">User</string>
     <string name="senha">Password</string>
+    <string name="data_agendamento">Date</string>
+    <string name="hora_agendamento">Time</string>
+    <string name="btn_servicos">Services</string>
+    <string name="btn_clientes">Customer</string>
+    <string name="btn_agendar_servico">Schedule</string>
 
 </resources>
