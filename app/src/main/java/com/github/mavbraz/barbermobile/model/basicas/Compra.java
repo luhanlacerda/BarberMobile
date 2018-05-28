@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Compra {
     private int id;
-    private Estado estado;
-    private Situacao situacao;
+    private StatusCompra statusCompra;
+    private StatusPagamento statusPagamento;
     private Cliente cliente;
     private List<Servico> servicos;
 
@@ -17,20 +17,20 @@ public class Compra {
         this.id = id;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public StatusCompra getStatusCompra() {
+        return statusCompra;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setStatusCompra(StatusCompra statusCompra) {
+        this.statusCompra = statusCompra;
     }
 
-    public Situacao getSituacao() {
-        return situacao;
+    public StatusPagamento getStatusPagamento() {
+        return statusPagamento;
     }
 
-    public void setSituacao(Situacao situacao) {
-        this.situacao = situacao;
+    public void setStatusPagamento(StatusPagamento statusPagamento) {
+        this.statusPagamento = statusPagamento;
     }
 
     public Cliente getCliente() {

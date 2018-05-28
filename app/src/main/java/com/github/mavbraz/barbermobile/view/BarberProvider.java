@@ -1,4 +1,4 @@
-package com.github.mavbraz.barbermobile.model;
+package com.github.mavbraz.barbermobile.view;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

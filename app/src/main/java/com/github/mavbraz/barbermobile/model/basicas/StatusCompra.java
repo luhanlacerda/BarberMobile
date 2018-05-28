@@ -1,5 +1,5 @@
 package com.github.mavbraz.barbermobile.model.basicas;
 
-public enum Estado {
+public enum StatusCompra {
     MARCADO, REALIZADO, CANCELADO;
 }

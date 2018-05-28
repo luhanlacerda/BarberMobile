@@ -5,37 +5,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.github.mavbraz.barbermobile.model.basicas.Cliente;
+import com.github.mavbraz.barbermobile.model.basicas.Servico;
 
 import java.util.List;
 
-public class ClienteAdapter extends BaseAdapter{
-    private final List<Cliente> clientes;
+public class ListarServicosAdapter extends BaseAdapter{
+    private final List<Servico> servicos;
     private final Context context;
 
-    public ClienteAdapter(Context context, List<Cliente> clientes) {
+    public ListarServicosAdapter(Context context, List<Servico> servicos) {
         this.context = context;
-        this.clientes = clientes;
+        this.servicos = servicos;
     }
 
     @Override
     public int getCount() {
-        return clientes.size();
+        return servicos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return clientes.get(position);
+        return servicos.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return clientes.get(position).getId();
+        return servicos.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Cliente cliente  = clientes.get(position);
+        Servico servico  = servicos.get(position);
 
         return null;
     }
