@@ -1,5 +1,6 @@
 package com.github.vitor0liveira.barber.controller;
 
+import com.github.vitor0liveira.barber.model.DAOCliente;
 import com.github.vitor0liveira.barber.model.basicas.Cliente;
 
 import java.util.List;
@@ -78,6 +79,8 @@ public class NegocioCliente implements INegocioCliente {
         if (cliente.getNome().isEmpty()){
             throw new Exception(ERRO_NOME);
         }
+
+        new DAOCliente().insert(cliente);
     }
 
     @Override
@@ -86,6 +89,8 @@ public class NegocioCliente implements INegocioCliente {
         if (cliente.getId() < 0){
             throw new Exception(ERRO_ID);
         }
+
+        new DAOCliente().remove(cliente);
 
     }
 
@@ -119,10 +124,13 @@ public class NegocioCliente implements INegocioCliente {
         if (cliente.getNome().isEmpty()){
             throw new Exception(ERRO_NOME);
         }
+
+        new DAOCliente().refresh(cliente);
+
     }
 
     @Override
     public List<Cliente> getAll() throws Exception {
-        return null;
+        return new DAOCliente().getAll();
     }
 }
