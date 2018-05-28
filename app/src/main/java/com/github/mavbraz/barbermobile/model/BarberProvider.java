@@ -8,7 +8,7 @@ import android.net.Uri;
 
 public class BarberProvider extends ContentProvider {
 
-    private static final String AUTHORITY = "com.github.vitor0liveira.barber";
+    private static final String AUTHORITY = "com.github.mavbraz.barbermobile";
     private static final String PATH = "barber";
     private static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + PATH);
 
@@ -27,7 +27,7 @@ public class BarberProvider extends ContentProvider {
          * Sets the integer value for multiple rows in table 3 to 1. Notice that no wildcard is used
          * in the path
          */
-        sUriMatcher.addURI("com.github.vitor0liveira.barber", "barber", 1);
+        sUriMatcher.addURI("com.github.mavbraz.barbermobile", "barber", 1);
 
         /*
          * Sets the code for a single row to 2. In this case, the "#" wildcard is
