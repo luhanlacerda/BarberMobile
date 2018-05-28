@@ -1,5 +1,5 @@
 package com.github.mavbraz.barbermobile.model.basicas;
 
-public enum Situacao {
+public enum StatusPagamento {
     PENDENTE, REALIZADO;
 }

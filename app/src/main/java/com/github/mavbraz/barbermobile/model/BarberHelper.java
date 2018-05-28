@@ -8,40 +8,41 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 
 import java.util.List;
+import java.util.Map;
 
-public class DAOCliente extends SQLiteOpenHelper {
+public class BarberHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
 
-    public DAOCliente(Context context) {
+    public BarberHelper(Context context) {
         super(context, "Barber", null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE Cliente (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, " +
-                " token TEXT, email TEXT);";
-        sqLiteDatabase.execSQL(sql);
+        /* // "Config -> id(auto_increment), key (not null unique), value(not null) => 1, nome, Matheus Braz => 2, email, mavbraz@gmail.com"
+        String sql = "CREATE TABLE Config (id INTEGER PRIMARY KEY AUTOINCREMENT, chave TEXT NOT NULL UNIQUE, valor TEXT NOT NULL);";
+        sqLiteDatabase.execSQL(sql);*/
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        String sql = "DROP TABLE IF EXISTS Cliente;";
+        /*String sql = "DROP TABLE IF EXISTS Cliente;";
         sqLiteDatabase.execSQL(sql);
-        onCreate(sqLiteDatabase);
+        onCreate(sqLiteDatabase);*/
     }
 
-    public void insert(Cliente cliente) {
+    /*public void insert(Map<String, String> value) {
         SQLiteDatabase db = getWritableDatabase();
 
-        ContentValues dados = getDataCliente(cliente);
+        ContentValues dados = getData(cliente);
 
         db.insert("Student", null, dados);
     }
 
-    private ContentValues getDataCliente(Cliente cliente) {
+    private ContentValues getData(Map<String, String> value) {
         ContentValues dados = new ContentValues();
-        dados.put("nome", cliente.getNome());
+        dados.put("nome", value..getNome());
         dados.put("email", cliente.getEmail());
         dados.put("token", cliente.getToken());
         return dados;
@@ -54,7 +55,7 @@ public class DAOCliente extends SQLiteOpenHelper {
         db.delete("Cliente", "id = ?", params);
     }
 
-    public List<Cliente> getClientes() {
+    public List<Map<String, String>> getData() {
         return null;
     }
 
@@ -65,7 +66,7 @@ public class DAOCliente extends SQLiteOpenHelper {
 
         String [] params = {String.valueOf(cliente.getId())};
         db.update("Cliente", dados, "id = ?", params);
-    }
+    }*/
 
 
 }

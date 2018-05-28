@@ -4,7 +4,6 @@ public class Servico {
     private int id;
     private String descricao;
     private int valor;
-    private Situacao situacao;
 
     public int getId() {
         return id;
@@ -30,11 +29,4 @@ public class Servico {
         this.valor = valor;
     }
 
-    public Situacao getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(Situacao situacao) {
-        this.situacao = situacao;
-    }
 }

@@ -1,6 +1,6 @@
 package com.github.mavbraz.barbermobile.model.basicas;
 
-public class Cliente extends Pessoa {
+public class Cliente {
 
     private int id;
     private String senha;

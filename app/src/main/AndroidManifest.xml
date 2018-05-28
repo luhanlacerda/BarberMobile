@@ -17,15 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name="com.github.mavbraz.barbermobile.view.LoginActivity" />
-        <activity android:name=".view.ResetActivity" />
         <activity android:name=".view.SingupActivity" />
-        <activity android:name=".view.CadastroClienteActivity" />
-        <activity android:name=".view.CadastroServicoActivity" />
-        <activity android:name="com.github.mavbraz.barbermobile.view.ListClienteActivity" />
         <activity android:name="com.github.mavbraz.barbermobile.view.ListServicoActivity" />
 
         <provider
-            android:name="com.github.mavbraz.barbermobile.model.BarberProvider"
+            android:name="com.github.mavbraz.barbermobile.view.BarberProvider"
             android:authorities="com.github.mavbraz.barbermobile"
             android:enabled="true"
             android:exported="true" />
