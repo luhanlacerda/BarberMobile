@@ -10,7 +10,6 @@ public abstract class Pessoa {
     private String rg;
     private String endereco;
     private Date dataNascimento;
-    private String senha;
     private boolean blocked;
 
     public String getEmail() {
@@ -67,13 +66,5 @@ public abstract class Pessoa {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 }

@@ -12,7 +12,5 @@ public interface INegocioCliente {
 
     public void remove(Cliente cliente) throws Exception;
 
-    public void refresh(Cliente cliente) throws Exception;
-
-    public List<Cliente> getAll() throws Exception;
+    public List<Cliente> getClientes() throws Exception;
 }
