@@ -85,7 +85,7 @@
                 android:focusableInTouchMode="true"
                 android:hint="@string/cpf"
                 android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@android:color/white" />
