@@ -9,24 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.SingupActivity" />
-        <activity android:name=".view.ListServicoActivity" />
-
         <provider
             android:name=".view.BarberProvider"
             android:authorities="com.github.mavbraz.barbermobile"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".view.FazerAgendamentoActivity"></activity>
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.SingupActivity" />
+        <activity android:name=".view.FazerAgendamentoActivity" />
+        <activity android:name=".view.SelecionarServicoActivity">
+
+        </activity>
+        <activity android:name=".view.AgendaActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
