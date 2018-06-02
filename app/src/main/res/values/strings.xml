@@ -31,6 +31,9 @@
     <string name="btn_servicos">Services</string>
     <string name="btn_clientes">Customer</string>
     <string name="btn_agendar_servico">Schedule</string>
+    <string name="msg_erro_email">Invalid Email</string>
+    <string name="msg_erro_senha">Invalid Password</string>
+    <string name="msg_sucesso">User %1$s with email %2$s registered successfully</string>
 
     <string name="hello_blank_fragment">This is the main fragment</string>
     <array name="menuOptions">
