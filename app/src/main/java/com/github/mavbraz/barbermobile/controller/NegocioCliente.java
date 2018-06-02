@@ -2,8 +2,10 @@ package com.github.mavbraz.barbermobile.controller;
 
 import android.content.Context;
 
-import com.github.mavbraz.barbermobile.model.BarberHelper;
+import com.github.mavbraz.barbermobile.model.DAOCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
+import com.github.mavbraz.barbermobile.utils.BarberException;
+import com.github.mavbraz.barbermobile.utils.BarberUtil;
 
 public class NegocioCliente implements INegocioCliente {
 
@@ -16,17 +18,29 @@ public class NegocioCliente implements INegocioCliente {
     private static String ERRO_ENDERECO = "Endereco inválido";
     private static String ERRO_ID = "ID inválido";
 
-    private Context ctx;
-
-    public NegocioCliente(Context ctx) {
-        this.ctx = ctx;
+    @Override
+    public boolean insert(Cliente cliente) throws BarberException {
+        return false;
     }
 
-    @Override
-    public void insert(Cliente cliente) throws Exception {
+    public boolean login(Cliente cliente) throws BarberException {
+        BarberException exception = new BarberException(true);
 
-        //new BarberHelper(ctx).insert(cliente);
+        if (cliente.getEmail() == null || cliente.getEmail().trim().isEmpty()) {
+            exception.addException(new BarberException("E-mail requerido", BarberException.EMAIL));
+        } else if (!BarberUtil.isEmailValid(cliente.getEmail())) {
+            exception.addException(new BarberException("E-mail inválido", BarberException.EMAIL));
+        }
 
+        if (cliente.getSenha() == null || cliente.getSenha().trim().isEmpty()) {
+            exception.addException(new BarberException("Senha requerida", BarberException.SENHA));
+        }
+
+        if (!exception.getExceptions().isEmpty()) {
+            throw exception;
+        }
+
+        return new DAOCliente().login(cliente);
     }
 
 }
