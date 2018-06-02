@@ -1,11 +1,11 @@
 package com.github.mavbraz.barbermobile.controller;
 
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
-
-import java.util.List;
+import com.github.mavbraz.barbermobile.utils.BarberException;
 
 public interface INegocioCliente {
 
-    public void insert(Cliente cliente) throws Exception;
+    boolean insert(Cliente cliente) throws BarberException;
+    boolean login(Cliente cliente) throws BarberException;
 
 }
