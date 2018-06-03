@@ -5,6 +5,8 @@ import java.util.List;
 
 public class BarberException extends Exception {
 
+    public static String NOME = "nome";
+    public static String CPF = "CPF";
     public static String EMAIL = "email";
     public static String SENHA = "senha";
 

@@ -13,9 +13,8 @@
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.SingupActivity" />
         <activity android:name=".view.FazerAgendamentoActivity" />
-        <activity android:name=".view.SelecionarServicoActivity"></activity>
-        <activity android:name=".view.AgendaActivity">
-        </activity>
+        <activity android:name=".view.SelecionarServicoActivity" />
+        <activity android:name=".view.AgendaActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

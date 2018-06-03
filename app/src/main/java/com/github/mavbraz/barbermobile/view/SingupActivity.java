@@ -4,20 +4,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
+import com.github.mavbraz.barbermobile.controller.NegocioCliente;
+import com.github.mavbraz.barbermobile.model.basicas.Cliente;
+import com.github.mavbraz.barbermobile.utils.BarberException;
 
-public class SingupActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
+import java.security.NoSuchAlgorithmException;
 
+public class SingupActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
     EditText edtNome;
-    ///EditText edtCpf;
+    EditText edtCpf;
     EditText edtEmail;
     EditText edtSenha;
 
@@ -26,11 +30,17 @@ public class SingupActivity extends AppCompatActivity implements TextView.OnEdit
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singup);
 
-        final EditText edtCpf = (EditText) findViewById(R.id.edt_cpf);
+        edtCpf = findViewById(R.id.edt_cpf);
+        edtNome = findViewById(R.id.edt_nome);
+        edtEmail = findViewById(R.id.edt_email);
+        edtSenha = findViewById(R.id.edt_password);
+
+        findViewById(R.id.btn_signup).setOnClickListener(this);
+
+        edtSenha.setOnEditorActionListener(this);
 
         edtCpf.addTextChangedListener(new TextWatcher() {
             boolean isUpdating;
-            String old = "";
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -83,36 +93,58 @@ public class SingupActivity extends AppCompatActivity implements TextView.OnEdit
             }
         });
 
-        edtNome = (EditText) findViewById(R.id.edt_nome);
-        edtEmail = (EditText) findViewById(R.id.edt_email);
-        edtSenha = (EditText) findViewById(R.id.edt_password);
-        edtSenha.setOnEditorActionListener(this);
+    }
 
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_signup) {
+            registrarCliente();
+        }
     }
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         if (textView == edtSenha && EditorInfo.IME_ACTION_DONE == actionId) {
-            String nome = edtNome.getText().toString();
-            String email = edtEmail.getText().toString();
-            String senha = edtSenha.getText().toString();
-            boolean ok = true;
+            registrarCliente();
 
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                edtEmail.setError(getString(R.string.msg_erro_email));
-                ok = false;
-            }
-
-            if (!senha.equals("123")) {
-                edtSenha.setError(getString(R.string.msg_erro_senha));
-                ok = false;
-            }
-
-            if (ok) {
-                Toast.makeText(this, getString(R.string.msg_sucesso, nome, email), Toast.LENGTH_LONG).show();
-            }
             return true;
         }
+
         return false;
     }
+
+    private void registrarCliente() {
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setNome(edtNome.getText().toString());
+            cliente.setCpf(edtCpf.getText().toString());
+            cliente.setEmail(edtEmail.getText().toString());
+            cliente.setSenha(edtSenha.getText().toString());
+
+            if (new NegocioCliente().insert(cliente)) {
+                Toast.makeText(this, "Register successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Register failed", Toast.LENGTH_SHORT).show();
+            }
+        } catch (BarberException loginException) {
+            try {
+                for (BarberException barberException : loginException.getExceptions()) {
+                    if (barberException.getComponent().equals(BarberException.NOME)) {
+                        edtNome.setError(barberException.getMessage());
+                    } else if (barberException.getComponent().equals(BarberException.CPF)) {
+                        edtCpf.setError(barberException.getMessage());
+                    } else if (barberException.getComponent().equals(BarberException.EMAIL)) {
+                        edtEmail.setError(barberException.getMessage());
+                    } else if (barberException.getComponent().equals(BarberException.SENHA)) {
+                        edtSenha.setError(barberException.getMessage());
+                    }
+                }
+            } catch (BarberException listException) {
+                Toast.makeText(this, listException.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } catch (NoSuchAlgorithmException senhaException) {
+            Toast.makeText(this, "Erro interno ao criptografar a senha", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

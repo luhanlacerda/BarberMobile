@@ -7,6 +7,8 @@ import java.security.NoSuchAlgorithmException;
 public class Cliente {
 
     private int id;
+    private String nome;
+    private String cpf;
     private String email;
     private String senha;
     private String token;
@@ -17,6 +19,22 @@ public class Cliente {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -32,7 +50,9 @@ public class Cliente {
     }
 
     public void setSenha(String senha) throws NoSuchAlgorithmException {
-        this.senha = BarberUtil.hash256(senha);
+        if (senha != null && !senha.trim().isEmpty()) {
+            this.senha = BarberUtil.hash256(senha);
+        }
     }
 
     public String getToken() {

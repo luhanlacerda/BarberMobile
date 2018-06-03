@@ -8,7 +8,7 @@ public class DAOCliente implements INegocioCliente {
 
     @Override
     public boolean insert(Cliente cliente) {
-        return false;
+        return true;
     }
 
     @Override
