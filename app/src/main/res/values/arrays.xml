@@ -4,4 +4,9 @@
         <item>Anterior</item>
         <item>Próximo</item>
     </string-array>
+    <string-array name="menuOptions">
+        <item>Home</item>
+        <item>Minha agenda</item>
+        <item>Solicitar serviço</item>
+    </string-array>
 </resources>
