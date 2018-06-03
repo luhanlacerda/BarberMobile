@@ -70,9 +70,9 @@ public class SingupActivity extends AppCompatActivity implements View.OnClickLis
                         str = str.substring(0, 3) + '.' + str.substring(3, 6) + '.' +
                                 str.substring(6, 9) + '-' + str.substring(9);
                         // se tem mais de 3, só coloca o ponto
-                    }else if (str.length() > 3){
-                        str = str.substring(0,3) + '.' + str.substring(3);
-                }
+                    } else if (str.length() > 3) {
+                        str = str.substring(0, 3) + '.' + str.substring(3);
+                    }
                     // seta a flag pra evitar chamada infinita
                     isUpdating = true;
                     //seta o novo text

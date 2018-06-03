@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.btn_login).setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_login) {
