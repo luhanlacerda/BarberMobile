@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vitoroliveira.barber">
+    package="com.github.mavbraz.barbermobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,25 +10,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".login.LoginActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.SingupActivity" />
+        <activity android:name=".view.FazerAgendamentoActivity" />
+        <activity android:name=".view.SelecionarServicoActivity" />
+        <activity android:name=".view.AgendaActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.ResetActivity"/>
-        <activity android:name=".funcionario.CasdastroFuncionarioActivity" />
-        <activity android:name=".login.SingupActivity" />
-        <activity android:name=".cliente.CadastroClienteActivity" />
-        <activity android:name=".servico.CadastroServicoActivity" />
-        <activity android:name=".cliente.ListClienteActivity" />
-        <activity android:name=".servico.ListServicoActivity" />
-        <activity android:name=".administrador.CadastroAdministradorActivity" />
-        <activity android:name=".administrador.ListAdministradorActivity"/>
     </application>
 
 </manifest>

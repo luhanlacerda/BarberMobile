@@ -25,4 +25,12 @@
     <string name="usuario">Usuario</string>
     <string name="btnPlus">+</string>
     <string name="senha">Senha</string>
+    <string name="data_agendamento">Data</string>
+    <string name="hora_agendamento">Hora</string>
+    <string name="btn_servicos">Serviços</string>
+    <string name="btn_clientes">Cliente</string>
+    <string name="btn_agendar_servico">Agendar</string>
+    <string name="msg_erro_email">Email inválido</string>
+    <string name="msg_erro_senha">Senha inválida</string>
+    <string name="msg_sucesso">Usuário %1$s com email %2$s registrado com sucesso</string>
 </resources>
