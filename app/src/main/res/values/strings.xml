@@ -36,12 +36,5 @@
     <string name="msg_sucesso">User %1$s with email %2$s registered successfully</string>
 
     <string name="hello_blank_fragment">This is the main fragment</string>
-    <array name="menuOptions">
-        <item>Home</item>
-        <item>Personal</item>
-        <item>High scores</item>
-        <item>Settings</item>
-        <item>About</item>
-    </array>
 
 </resources>

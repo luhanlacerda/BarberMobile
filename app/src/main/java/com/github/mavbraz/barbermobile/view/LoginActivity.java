@@ -1,5 +1,6 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -30,12 +31,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edtSenha = findViewById(R.id.password);
 
         findViewById(R.id.btn_login).setOnClickListener(this);
+        findViewById(R.id.btn_signup).setOnClickListener(this);
+
+        edtSenha.setOnEditorActionListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_login) {
             logarCliente();
+        } else if (view.getId() == R.id.btn_signup) {
+            startActivity(new Intent(this, SingupActivity.class));
         }
     }
 
@@ -57,7 +63,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             cliente.setSenha(edtSenha.getText().toString());
 
             if (new NegocioCliente().login(cliente)) {
-                Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                finish();
             } else {
                 Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
             }

@@ -1,5 +1,7 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -36,6 +38,7 @@ public class SingupActivity extends AppCompatActivity implements View.OnClickLis
         edtSenha = findViewById(R.id.edt_password);
 
         findViewById(R.id.btn_signup).setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(this);
 
         edtSenha.setOnEditorActionListener(this);
 
@@ -99,6 +102,10 @@ public class SingupActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.btn_signup) {
             registrarCliente();
+        } else if (view.getId() == R.id.btn_login) {
+            startActivity(new Intent(this, LoginActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
         }
     }
 
@@ -122,7 +129,9 @@ public class SingupActivity extends AppCompatActivity implements View.OnClickLis
             cliente.setSenha(edtSenha.getText().toString());
 
             if (new NegocioCliente().insert(cliente)) {
-                Toast.makeText(this, "Register successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                finish();
             } else {
                 Toast.makeText(this, "Register failed", Toast.LENGTH_SHORT).show();
             }
