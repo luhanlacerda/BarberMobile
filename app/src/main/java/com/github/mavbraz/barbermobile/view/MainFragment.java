@@ -21,6 +21,8 @@ import com.github.mavbraz.barbermobile.R;
  */
 public class MainFragment extends Fragment {
 
+    public static final String TAG = "main";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
