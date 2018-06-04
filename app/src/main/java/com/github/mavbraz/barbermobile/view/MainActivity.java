@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         handleDrawer();
 
         // Show main fragment in container
-        goToFragment(new MainFragment(), false);
-        mMenuAdapter.setViewSelected(0, true);
         setTitle(mTitles.get(0));
+        mMenuAdapter.setViewSelected(0, true);
+        goToFragment(new MainFragment(), false, MainFragment.TAG, false);
     }
 
     private void handleToolbar() {
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
 
         mViewHolder.mDuoDrawerLayout.setDrawerListener(duoDrawerToggle);
         duoDrawerToggle.syncState();
-
     }
 
     private void handleMenu() {
@@ -79,33 +78,53 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         Toast.makeText(this, "onHeaderClicked", Toast.LENGTH_SHORT).show();
     }
 
-    private void goToFragment(Fragment fragment, boolean addToBackStack) {
+    private boolean goToFragment(Fragment fragment, boolean replace, String tag, boolean addToBackStack) {
+        if (getSupportFragmentManager().findFragmentByTag(tag) != null &&
+                getSupportFragmentManager().findFragmentByTag(tag).isVisible()) {
+            return false;
+        }
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
 
-        transaction.add(R.id.container, fragment).commit();
+        if (replace) {
+            transaction.replace(R.id.container, fragment, tag);
+        } else {
+            transaction.add(R.id.container, fragment, tag);
+        }
+
+        transaction.commit();
+
+        return true;
     }
 
     @Override
     public void onOptionClicked(int position, Object objectClicked) {
-        // Set the toolbar title
-        setTitle(mTitles.get(position));
-
-        // Set the right options selected
-        mMenuAdapter.setViewSelected(position, true);
+        boolean wasAdded = false;
 
         // Navigate to the right fragment
         switch (position) {
-            default:
-                goToFragment(new MainFragment(), false);
+            case 0:
+                wasAdded = goToFragment(new MainFragment(), true, MainFragment.TAG, true);
+                break;
+            case 1:
+                wasAdded = goToFragment(AgendaFragment.newInstance(), true, AgendaFragment.TAG, true);
                 break;
         }
 
-        // Close the drawer
-        mViewHolder.mDuoDrawerLayout.closeDrawer();
+        if (wasAdded) {
+            // Set the toolbar title
+            setTitle(mTitles.get(position));
+
+            // Set the right options selected
+            mMenuAdapter.setViewSelected(position, true);
+
+            // Close the drawer
+            mViewHolder.mDuoDrawerLayout.closeDrawer();
+        }
     }
 
     private class ViewHolder {

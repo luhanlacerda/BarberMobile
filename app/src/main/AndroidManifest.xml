@@ -13,17 +13,18 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity android:name=".view.LoginActivity" android:launchMode="singleTop">
+
+        </activity>
+        <activity android:name=".view.SingupActivity" />
+        <activity android:name=".view.FazerAgendamentoActivity" />
+        <activity android:name=".view.SelecionarServicoActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.SingupActivity" />
-        <activity android:name=".view.FazerAgendamentoActivity" />
-        <activity android:name=".view.SelecionarServicoActivity" />
-        <activity android:name=".view.AgendaActivity" />
-        <activity android:name=".view.MainActivity" />
     </application>
 
 </manifest>

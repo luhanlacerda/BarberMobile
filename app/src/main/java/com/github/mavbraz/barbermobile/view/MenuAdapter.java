@@ -8,10 +8,6 @@ import java.util.ArrayList;
 
 import nl.psdcompany.duonavigationdrawer.views.DuoOptionView;
 
-/**
- * Created by PSD on 13-04-17.
- */
-
 class MenuAdapter extends BaseAdapter {
     private ArrayList<String> mOptions;
     private ArrayList<DuoOptionView> mOptionViews = new ArrayList<>();
@@ -31,7 +27,6 @@ class MenuAdapter extends BaseAdapter {
     }
 
     void setViewSelected(int position, boolean selected) {
-
         // Looping through the options in the menu
         // Selecting the chosen option
         for (int i = 0; i < mOptionViews.size(); i++) {

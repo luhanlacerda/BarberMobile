@@ -41,18 +41,17 @@ public class SelecionarServicoActivity extends AppCompatActivity implements View
                     view.setBackgroundColor(Color.WHITE);
                     listView.setItemChecked(position, false);
                 }
-
             }
         });
 
         findViewById(R.id.confirmar_servico).setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.confirmar_servico) {
             List<Integer> checked = new ArrayList<>();
+
             for (int i = 0; i < listView.getCheckedItemPositions().size(); i++) {
                 if (listView.getCheckedItemPositions().valueAt(i)) {
                     checked.add(listView.getCheckedItemPositions().keyAt(i));
@@ -62,5 +61,6 @@ public class SelecionarServicoActivity extends AppCompatActivity implements View
             Toast.makeText(this, checked + "", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
 
