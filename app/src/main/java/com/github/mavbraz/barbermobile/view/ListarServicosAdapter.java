@@ -64,6 +64,10 @@ public class ListarServicosAdapter extends BaseAdapter{
         return convertView;
     }
 
+    public List<Servico> getServicos() {
+        return servicos;
+    }
+
     private static class ViewHolder{
         TextView fieldNome;
         TextView fieldDescricao;

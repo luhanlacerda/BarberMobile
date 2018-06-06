@@ -43,6 +43,6 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
             return "NOT FOUND";
         }
 
-        return String.format(Locale.getDefault(), "AGENDAMENTO %d", position + 1);
+        return String.format(Locale.getDefault(), "AGENDAMENTO %d", mAgendamentos.get(position).getId());
     }
 }
