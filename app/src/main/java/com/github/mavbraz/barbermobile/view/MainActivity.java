@@ -132,9 +132,12 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+        int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackCount == 0) {
             moveTaskToBack(true);
         } else {
+            setTitle(mTitles.get(backStackCount - 1));
+            mMenuAdapter.setViewSelected(backStackCount - 1, true);
             super.onBackPressed();
         }
     }

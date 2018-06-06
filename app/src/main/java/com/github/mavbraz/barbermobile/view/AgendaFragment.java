@@ -47,6 +47,7 @@ public class AgendaFragment extends Fragment {
      */
     public static AgendaFragment newInstance() {
         Agendamento agendamento1 = new Agendamento();
+        agendamento1.setId(1);
         agendamento1.setHorario(1528062164L);
         agendamento1.setSituacao(Situacao.MARCADO);
         agendamento1.setPagamento(Pagamento.PENDENTE);
@@ -55,6 +56,7 @@ public class AgendaFragment extends Fragment {
                         new Servico(2, "Hidratação", null, 25.5)));
 
         Agendamento agendamento2 = new Agendamento();
+        agendamento1.setId(2);
         agendamento2.setHorario(1528762164L);
         agendamento2.setSituacao(Situacao.REALIZADO);
         agendamento2.setPagamento(Pagamento.REALIZADO);
