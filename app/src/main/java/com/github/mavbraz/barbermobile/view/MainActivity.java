@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
+import com.github.mavbraz.barbermobile.utils.SharedPreferencesManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
     private ViewHolder mViewHolder;
 
     private ArrayList<String> mTitles = new ArrayList<>();
+    private SharedPreferencesManager mSharedPreferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,15 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         setTitle(mTitles.get(0));
         mMenuAdapter.setViewSelected(0, true);
         goToFragment(new MainFragment(), false, MainFragment.TAG, false);
+
+        mSharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
+        String email = mSharedPreferencesManager.getEmail();
+        if (email != null) {
+            TextView txtHeader = mViewHolder.mDuoMenuView.getHeaderView().findViewById(R.id.header_text);
+            txtHeader.setText(email);
+        } else {
+            this.onFooterClicked();
+        }
     }
 
     private void handleToolbar() {
@@ -71,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
 
     @Override
     public void onFooterClicked() {
+        mSharedPreferencesManager.removeToken();
+        mSharedPreferencesManager.removeEmail();
+
         startActivity(new Intent(this, LoginActivity.class)
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();

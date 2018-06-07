@@ -13,24 +13,34 @@ import android.widget.Toast;
 import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.controller.NegocioCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
-import com.github.mavbraz.barbermobile.services.UsuarioService;
 import com.github.mavbraz.barbermobile.utils.BarberException;
+import com.github.mavbraz.barbermobile.utils.SharedPreferencesManager;
 
 import java.security.NoSuchAlgorithmException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
     EditText edtEmail;
     EditText edtSenha;
 
+    private SharedPreferencesManager mSharedPreferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mSharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
+
+        if (mSharedPreferencesManager.isLogged()) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
+        }
+
         setContentView(R.layout.activity_login);
 
         edtEmail = findViewById(R.id.email);
@@ -64,17 +74,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void logarCliente() {
         try {
-            Cliente cliente = new Cliente();
+            final Cliente cliente = new Cliente();
             cliente.setEmail(edtEmail.getText().toString());
             cliente.setSenha(edtSenha.getText().toString());
 
-            if (new NegocioCliente().login(cliente)) {
-                startActivity(new Intent(this, MainActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                finish();
-            } else {
-                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
-            }
+            new NegocioCliente().login(cliente).enqueue(
+                    new Callback<Cliente>() {
+                        @Override
+                        public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                            if (response.isSuccessful() && response.body() != null && response.body().getToken() != null) {
+                                mSharedPreferencesManager.saveToken(response.body().getToken());
+                                mSharedPreferencesManager.saveEmail(cliente.getEmail());
+
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Cliente> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
         } catch (BarberException loginException) {
             try {
                 for (BarberException barberException : loginException.getExceptions()) {
@@ -91,4 +116,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Erro interno ao criptografar a senha", Toast.LENGTH_SHORT).show();
         }
 
-}}
+    }
+}
