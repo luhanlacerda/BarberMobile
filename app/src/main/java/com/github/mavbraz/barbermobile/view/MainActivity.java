@@ -1,5 +1,6 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -70,7 +71,9 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
 
     @Override
     public void onFooterClicked() {
-        Toast.makeText(this, "onFooterClicked", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, LoginActivity.class)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
     }
 
     @Override
