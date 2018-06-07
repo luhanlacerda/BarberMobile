@@ -13,9 +13,15 @@ import android.widget.Toast;
 import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.controller.NegocioCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
+import com.github.mavbraz.barbermobile.services.UsuarioService;
 import com.github.mavbraz.barbermobile.utils.BarberException;
 
 import java.security.NoSuchAlgorithmException;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
@@ -84,6 +90,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (NoSuchAlgorithmException senhaException) {
             Toast.makeText(this, "Erro interno ao criptografar a senha", Toast.LENGTH_SHORT).show();
         }
-    }
 
-}
+}}
