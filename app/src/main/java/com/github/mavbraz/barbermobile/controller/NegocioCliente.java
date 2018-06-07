@@ -5,6 +5,8 @@ import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 import com.github.mavbraz.barbermobile.utils.BarberException;
 import com.github.mavbraz.barbermobile.utils.BarberUtil;
 
+import retrofit2.Call;
+
 public class NegocioCliente implements INegocioCliente {
 
     @Override
@@ -38,7 +40,7 @@ public class NegocioCliente implements INegocioCliente {
         return new DAOCliente().insert(cliente);
     }
 
-    public boolean login(Cliente cliente) throws BarberException {
+    public Call<Cliente> login(Cliente cliente) throws BarberException {
         BarberException exception = new BarberException(true);
 
         if (cliente.getEmail() == null || cliente.getEmail().trim().isEmpty()) {

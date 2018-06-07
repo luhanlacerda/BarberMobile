@@ -5,17 +5,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceBuilder {
 
-  public static Retrofit retrofit = null;
+    private static Retrofit retrofit;
+    private static final String BASE_URL = "http://barbermobile.servehttp.com:3000";
 
-  public static Retrofit getLogin(String url) {
-    if (retrofit == null) {
-      retrofit = new Retrofit.Builder()
-          .baseUrl(url)
-          .addConverterFactory(GsonConverterFactory.create())
-          .build();
+    public static Retrofit getRetrofitInstance() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
     }
-    return retrofit;
-  }
-
 
 }
