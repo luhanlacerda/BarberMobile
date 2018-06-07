@@ -1,6 +1,9 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +20,9 @@ import java.util.List;
 
 public class SelecionarServicoActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String RESULT_SERVICOS = "servicos";
+
+    ListarServicosAdapter adapter;
     ListView listView;
 
     @Override
@@ -28,9 +34,11 @@ public class SelecionarServicoActivity extends AppCompatActivity implements View
                 new Servico(1, "Corte de cabelo", "Fique como o Chewbacca", 30.5),
                 new Servico(2, "Barba e bigode", "Fique como a barbie", 150.8));
 
+        adapter = new ListarServicosAdapter(this, servicos);
+
         listView = findViewById(R.id.list_servicos);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        listView.setAdapter(new ListarServicosAdapter(this, servicos));
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -50,15 +58,21 @@ public class SelecionarServicoActivity extends AppCompatActivity implements View
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.confirmar_servico) {
-            List<Integer> checked = new ArrayList<>();
+            List<Servico> checked = new ArrayList<>();
 
             for (int i = 0; i < listView.getCheckedItemPositions().size(); i++) {
                 if (listView.getCheckedItemPositions().valueAt(i)) {
-                    checked.add(listView.getCheckedItemPositions().keyAt(i));
+                    int position = listView.getCheckedItemPositions().keyAt(i);
+
+                    checked.add(adapter.getServicos().get(position));
                 }
             }
 
-            Toast.makeText(this, checked + "", Toast.LENGTH_SHORT).show();
+            Intent data = new Intent();
+            data.putParcelableArrayListExtra(RESULT_SERVICOS, (ArrayList<? extends Parcelable>) checked);
+
+            setResult(Activity.RESULT_OK, data);
+            finish();
         }
     }
 

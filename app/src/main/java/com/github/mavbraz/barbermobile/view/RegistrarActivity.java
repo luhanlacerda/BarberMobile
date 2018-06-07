@@ -19,7 +19,7 @@ import com.github.mavbraz.barbermobile.utils.BarberException;
 
 import java.security.NoSuchAlgorithmException;
 
-public class SingupActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
+public class RegistrarActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
     EditText edtNome;
     EditText edtCpf;
@@ -29,7 +29,7 @@ public class SingupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_singup);
+        setContentView(R.layout.activity_registrar);
 
         edtCpf = findViewById(R.id.edt_cpf);
         edtNome = findViewById(R.id.edt_nome);

@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.btn_login) {
             logarCliente();
         } else if (view.getId() == R.id.btn_signup) {
-            startActivity(new Intent(this, SingupActivity.class));
+            startActivity(new Intent(this, RegistrarActivity.class));
         }
     }
 

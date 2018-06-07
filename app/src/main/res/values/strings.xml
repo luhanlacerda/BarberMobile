@@ -34,7 +34,13 @@
     <string name="msg_erro_email">Invalid Email</string>
     <string name="msg_erro_senha">Invalid Password</string>
     <string name="msg_sucesso">User %1$s with email %2$s registered successfully</string>
-
     <string name="hello_blank_fragment">This is the main fragment</string>
+    <string name="empty_chosen_date">Chosen date: None</string>
+    <string name="chosen_date">Chosen date: %1$s</string>
+    <string name="btn_change_date">Change date</string>
+    <string name="empty_preferred_time">Preferred time: None</string>
+    <string name="preferred_time">Preferred time: %1$s</string>
+    <string name="btn_preferred_time">Change time</string>
+    <string name="btn_choose_services">Choose Services</string>
 
 </resources>

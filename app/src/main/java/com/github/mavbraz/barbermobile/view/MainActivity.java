@@ -113,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
             case 1:
                 wasAdded = goToFragment(AgendaFragment.newInstance(), true, AgendaFragment.TAG, true);
                 break;
+            case 2:
+                wasAdded = goToFragment(new SolicitarServicoFragment(), true, SolicitarServicoFragment.TAG, true);
+                break;
         }
 
         if (wasAdded) {
@@ -124,6 +127,18 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
 
             // Close the drawer
             mViewHolder.mDuoDrawerLayout.closeDrawer();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackCount == 0) {
+            moveTaskToBack(true);
+        } else {
+            setTitle(mTitles.get(backStackCount - 1));
+            mMenuAdapter.setViewSelected(backStackCount - 1, true);
+            super.onBackPressed();
         }
     }
 

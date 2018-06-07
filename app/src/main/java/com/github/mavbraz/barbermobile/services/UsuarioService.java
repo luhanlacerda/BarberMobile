@@ -11,7 +11,6 @@ public interface UsuarioService {
   @POST("usuario/registrar/cliente")
   Call<Cliente> registrarUsuario(@Body Cliente cliente);
 
-  @GET("usuario/login/cliente")
+  @POST("usuario/login/cliente")
   Call<Cliente> loginUsuario(@Body Cliente cliente);
-
 }
