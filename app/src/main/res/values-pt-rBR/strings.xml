@@ -42,5 +42,8 @@
     <string name="preferred_time">Horário escolhido: %1$s</string>
     <string name="btn_preferred_time">Alterar horário</string>
     <string name="btn_choose_services">Escolher Serviços</string>
+    <string name="barbershop_descricao">O BarberShop é mais que uma simples barbearia, é o local
+        ideal para você relaxar enquanto nós oferemos o melhor serviço disponível para você!
+        Junte-se a nós do BarberShop, seja um apreciador de barbas bem cuidadas.</string>
 
 </resources>

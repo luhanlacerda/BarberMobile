@@ -42,5 +42,8 @@
     <string name="preferred_time">Preferred time: %1$s</string>
     <string name="btn_preferred_time">Change time</string>
     <string name="btn_choose_services">Choose Services</string>
+    <string name="barbershop_descricao">The BarberShop is more than a simple barber shop, it is the
+        ideal place to relax while we offer the best service available to you!
+        Join us at BarberShop, be a lover of beards well cared.</string>
 
 </resources>
