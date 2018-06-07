@@ -1,6 +1,8 @@
 package com.github.mavbraz.barbermobile.view;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,6 +27,7 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
     EditText edtCpf;
     EditText edtEmail;
     EditText edtSenha;
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
         edtNome = findViewById(R.id.edt_nome);
         edtEmail = findViewById(R.id.edt_email);
         edtSenha = findViewById(R.id.edt_password);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         findViewById(R.id.btn_signup).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
@@ -113,10 +117,10 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
         if (textView == edtSenha && EditorInfo.IME_ACTION_DONE == actionId) {
             registrarCliente();
 
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     private void registrarCliente() {
@@ -132,7 +136,8 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
             } else {
-                Toast.makeText(this, "Register failed", Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Falha ao registrar. Tente novamente",
+                        Snackbar.LENGTH_LONG).show();
             }
         } catch (BarberException loginException) {
             try {
@@ -148,10 +153,11 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
                     }
                 }
             } catch (BarberException listException) {
-                Toast.makeText(this, listException.getMessage(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, listException.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         } catch (NoSuchAlgorithmException senhaException) {
-            Toast.makeText(this, "Erro interno ao criptografar a senha", Toast.LENGTH_SHORT).show();
+            Snackbar.make(coordinatorLayout, "Erro interno ao criptografar a senha",
+                    Snackbar.LENGTH_LONG).show();
         }
     }
 

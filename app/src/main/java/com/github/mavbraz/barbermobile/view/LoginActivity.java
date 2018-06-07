@@ -1,6 +1,8 @@
 package com.github.mavbraz.barbermobile.view;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     EditText edtEmail;
     EditText edtSenha;
+    CoordinatorLayout coordinatorLayout;
 
     private SharedPreferencesManager mSharedPreferencesManager;
 
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         edtEmail = findViewById(R.id.email);
         edtSenha = findViewById(R.id.password);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_signup).setOnClickListener(this);
@@ -66,10 +70,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (textView == edtSenha && EditorInfo.IME_ACTION_DONE == actionId) {
             logarCliente();
 
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     private void logarCliente() {
@@ -90,13 +94,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                                 finish();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                                Snackbar.make(coordinatorLayout, "Falha ao logar. Tente novamente",
+                                        Snackbar.LENGTH_LONG).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Cliente> call, Throwable t) {
-                            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(coordinatorLayout, "Falha ao logar. Tente novamente",
+                                    Snackbar.LENGTH_LONG).show();
                         }
                     }
             );
@@ -110,10 +116,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             } catch (BarberException listException) {
-                Toast.makeText(this, listException.getMessage(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, listException.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         } catch (NoSuchAlgorithmException senhaException) {
-            Toast.makeText(this, "Erro interno ao criptografar a senha", Toast.LENGTH_SHORT).show();
+            Snackbar.make(coordinatorLayout, "Erro interno ao criptografar a senha",
+                    Snackbar.LENGTH_LONG).show();
         }
 
     }
