@@ -1,5 +1,7 @@
 package com.github.mavbraz.barbermobile.controller;
 
+import android.content.Context;
+
 import com.github.mavbraz.barbermobile.model.DAOCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 import com.github.mavbraz.barbermobile.utils.BarberException;
@@ -9,17 +11,23 @@ import retrofit2.Call;
 
 public class NegocioCliente implements INegocioCliente {
 
+    private Context context;
+
+    public NegocioCliente(Context context) {
+        this.context = context;
+    }
+
     @Override
-    public boolean insert(Cliente cliente) throws BarberException {
+    public Call<Cliente> insert(Cliente cliente) throws BarberException {
         BarberException exception = new BarberException(true);
 
         if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
             exception.addException(new BarberException("Nome requerido", BarberException.NOME));
         }
 
-        if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
+        if (cliente.getCpf() == null || cliente.getCpf().trim().isEmpty()) {
             exception.addException(new BarberException("CPF requerido", BarberException.CPF));
-        } else if (cliente.getCpf().replaceAll("\\.-", "").matches("^[0-9]{11}$")) {
+        } else if (!cliente.getCpf().matches("^[0-9]{11}$")) {
             exception.addException(new BarberException("CPF inválido", BarberException.CPF));
         }
 
@@ -37,7 +45,7 @@ public class NegocioCliente implements INegocioCliente {
             throw exception;
         }
 
-        return new DAOCliente().insert(cliente);
+        return new DAOCliente(context).insert(cliente);
     }
 
     public Call<Cliente> login(Cliente cliente) throws BarberException {
@@ -57,7 +65,7 @@ public class NegocioCliente implements INegocioCliente {
             throw exception;
         }
 
-        return new DAOCliente().login(cliente);
+        return new DAOCliente(context).login(cliente);
     }
 
 }

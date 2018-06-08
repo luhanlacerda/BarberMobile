@@ -7,19 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.controller.NegocioCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 import com.github.mavbraz.barbermobile.utils.BarberException;
+import com.github.mavbraz.barbermobile.utils.SharedPreferencesManager;
 
-import java.security.NoSuchAlgorithmException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegistrarActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
@@ -27,6 +37,8 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
     EditText edtCpf;
     EditText edtEmail;
     EditText edtSenha;
+    Button btnRegistrar;
+    Button btnLogin;
     CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -40,8 +52,11 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
         edtSenha = findViewById(R.id.edt_password);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
-        findViewById(R.id.btn_signup).setOnClickListener(this);
-        findViewById(R.id.btn_login).setOnClickListener(this);
+        btnRegistrar = findViewById(R.id.btn_signup);
+        btnLogin = findViewById(R.id.btn_login);
+
+        btnRegistrar.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
 
         edtSenha.setOnEditorActionListener(this);
 
@@ -125,20 +140,50 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
 
     private void registrarCliente() {
         try {
-            Cliente cliente = new Cliente();
+            setButtons(false);
+            final Cliente cliente = new Cliente();
             cliente.setNome(edtNome.getText().toString());
             cliente.setCpf(edtCpf.getText().toString());
             cliente.setEmail(edtEmail.getText().toString());
             cliente.setSenha(edtSenha.getText().toString());
 
-            if (new NegocioCliente().insert(cliente)) {
-                startActivity(new Intent(this, MainActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                finish();
-            } else {
-                Snackbar.make(coordinatorLayout, "Falha ao registrar. Tente novamente",
-                        Snackbar.LENGTH_LONG).show();
-            }
+            final SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
+
+            new NegocioCliente(getApplicationContext()).insert(cliente).enqueue(
+                    new Callback<Cliente>() {
+                        @Override
+                        public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                            if (response.isSuccessful() && response.body() != null && response.body().getToken() != null) {
+                                sharedPreferencesManager.saveToken(response.body().getToken());
+                                sharedPreferencesManager.saveEmail(cliente.getEmail());
+
+                                startActivity(new Intent(RegistrarActivity.this, MainActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                finish();
+                            } else {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    setError(jsonObject.getString("message"));
+                                } catch (NullPointerException|IOException|JSONException ex) {
+                                    setError("Falha ao registrar. Tente novamente");
+                                } finally {
+                                    setButtons(true);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Cliente> call, Throwable t) {
+                            if (t instanceof SocketTimeoutException) {
+                                setError("Erro ao tentar conectar com o servidor");
+                            } else {
+                                setError("Falha ao registrar. Tente novamente");
+                            }
+
+                            setButtons(true);
+                        }
+                    }
+            );
         } catch (BarberException loginException) {
             try {
                 for (BarberException barberException : loginException.getExceptions()) {
@@ -153,12 +198,20 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
                     }
                 }
             } catch (BarberException listException) {
-                Snackbar.make(coordinatorLayout, listException.getMessage(), Snackbar.LENGTH_LONG).show();
+                setError(listException.getMessage());
+            } finally {
+                setButtons(true);
             }
-        } catch (NoSuchAlgorithmException senhaException) {
-            Snackbar.make(coordinatorLayout, "Erro interno ao criptografar a senha",
-                    Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    private void setError(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void setButtons(boolean state) {
+        btnRegistrar.setEnabled(state);
+        btnLogin.setEnabled(state);
     }
 
 }

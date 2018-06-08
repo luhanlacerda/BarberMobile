@@ -2,6 +2,7 @@ package com.github.mavbraz.barbermobile.model.basicas;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.github.mavbraz.barbermobile.utils.BarberUtil;
 
@@ -85,7 +86,7 @@ public class Cliente implements Parcelable {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = cpf.replace(".", "").replace("-", "");
     }
 
     public String getEmail() {
@@ -100,9 +101,13 @@ public class Cliente implements Parcelable {
         return senha;
     }
 
-    public void setSenha(String senha) throws NoSuchAlgorithmException {
-        if (senha != null && !senha.trim().isEmpty()) {
-            this.senha = BarberUtil.hash256(senha);
+    @SuppressWarnings("EmptyCatchBlock")
+    public void setSenha(String senha) {
+        try {
+            if (senha != null && !senha.trim().isEmpty()) {
+                this.senha = BarberUtil.hash256(senha);
+            }
+        } catch (NoSuchAlgorithmException ex) {
         }
     }
 

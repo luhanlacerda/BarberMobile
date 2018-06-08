@@ -5,12 +5,13 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.controller.NegocioCliente;
@@ -18,7 +19,11 @@ import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 import com.github.mavbraz.barbermobile.utils.BarberException;
 import com.github.mavbraz.barbermobile.utils.SharedPreferencesManager;
 
-import java.security.NoSuchAlgorithmException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     EditText edtEmail;
     EditText edtSenha;
+    Button btnLogin;
+    Button btnRegistrar;
     CoordinatorLayout coordinatorLayout;
 
     private SharedPreferencesManager mSharedPreferencesManager;
@@ -49,9 +56,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edtEmail = findViewById(R.id.email);
         edtSenha = findViewById(R.id.password);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        btnLogin = findViewById(R.id.btn_login);
+        btnRegistrar = findViewById(R.id.btn_signup);
 
-        findViewById(R.id.btn_login).setOnClickListener(this);
-        findViewById(R.id.btn_signup).setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        btnRegistrar.setOnClickListener(this);
 
         edtSenha.setOnEditorActionListener(this);
     }
@@ -78,11 +87,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void logarCliente() {
         try {
+            setButtons(false);
             final Cliente cliente = new Cliente();
             cliente.setEmail(edtEmail.getText().toString());
             cliente.setSenha(edtSenha.getText().toString());
 
-            new NegocioCliente().login(cliente).enqueue(
+            new NegocioCliente(getApplicationContext()).login(cliente).enqueue(
                     new Callback<Cliente>() {
                         @Override
                         public void onResponse(Call<Cliente> call, Response<Cliente> response) {
@@ -94,15 +104,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                                 finish();
                             } else {
-                                Snackbar.make(coordinatorLayout, "Falha ao logar. Tente novamente",
-                                        Snackbar.LENGTH_LONG).show();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    setError(jsonObject.getString("message"));
+                                } catch (NullPointerException|IOException |JSONException ex) {
+                                    setError("Falha ao logar. Tente novamente");
+                                } finally {
+                                    setButtons(true);
+                                }
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Cliente> call, Throwable t) {
-                            Snackbar.make(coordinatorLayout, "Falha ao logar. Tente novamente",
-                                    Snackbar.LENGTH_LONG).show();
+                            if (t instanceof SocketTimeoutException) {
+                                setError("Erro ao tentar conectar com o servidor");
+                            } else {
+                                setError("Falha ao logar. Tente novamente");
+                            }
+
+                            setButtons(true);
                         }
                     }
             );
@@ -116,12 +137,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             } catch (BarberException listException) {
-                Snackbar.make(coordinatorLayout, listException.getMessage(), Snackbar.LENGTH_LONG).show();
+                setError(listException.getMessage());
+            } finally {
+                setButtons(true);
             }
-        } catch (NoSuchAlgorithmException senhaException) {
-            Snackbar.make(coordinatorLayout, "Erro interno ao criptografar a senha",
-                    Snackbar.LENGTH_LONG).show();
         }
+    }
 
+    private void setError(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void setButtons(boolean state) {
+        btnLogin.setEnabled(state);
+        btnRegistrar.setEnabled(state);
     }
 }
