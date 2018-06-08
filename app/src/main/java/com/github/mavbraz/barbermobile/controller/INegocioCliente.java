@@ -7,7 +7,7 @@ import retrofit2.Call;
 
 public interface INegocioCliente {
 
-    boolean insert(Cliente cliente) throws BarberException;
+    Call<Cliente> insert(Cliente cliente) throws BarberException;
     Call<Cliente> login(Cliente cliente) throws BarberException;
 
 }

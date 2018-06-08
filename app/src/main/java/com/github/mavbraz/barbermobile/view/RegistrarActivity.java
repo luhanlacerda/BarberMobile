@@ -12,14 +12,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.controller.NegocioCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 import com.github.mavbraz.barbermobile.utils.BarberException;
 
-import java.security.NoSuchAlgorithmException;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegistrarActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
@@ -131,14 +132,27 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
             cliente.setEmail(edtEmail.getText().toString());
             cliente.setSenha(edtSenha.getText().toString());
 
-            if (new NegocioCliente().insert(cliente)) {
-                startActivity(new Intent(this, MainActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                finish();
-            } else {
-                Snackbar.make(coordinatorLayout, "Falha ao registrar. Tente novamente",
-                        Snackbar.LENGTH_LONG).show();
-            }
+            new NegocioCliente().insert(cliente).enqueue(
+                    new Callback<Cliente>() {
+                        @Override
+                        public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                            if (response.isSuccessful() && response.body() != null && response.body().getToken() != null) {
+                                startActivity(new Intent(RegistrarActivity.this, MainActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                finish();
+                            } else {
+                                Snackbar.make(coordinatorLayout, "Falha ao registrar. Tente novamente",
+                                        Snackbar.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Cliente> call, Throwable t) {
+                            Snackbar.make(coordinatorLayout, "Falha ao registrar. Tente novamente",
+                                    Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+            );
         } catch (BarberException loginException) {
             try {
                 for (BarberException barberException : loginException.getExceptions()) {
@@ -155,9 +169,6 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
             } catch (BarberException listException) {
                 Snackbar.make(coordinatorLayout, listException.getMessage(), Snackbar.LENGTH_LONG).show();
             }
-        } catch (NoSuchAlgorithmException senhaException) {
-            Snackbar.make(coordinatorLayout, "Erro interno ao criptografar a senha",
-                    Snackbar.LENGTH_LONG).show();
         }
     }
 

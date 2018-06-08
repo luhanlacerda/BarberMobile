@@ -118,9 +118,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } catch (BarberException listException) {
                 Snackbar.make(coordinatorLayout, listException.getMessage(), Snackbar.LENGTH_LONG).show();
             }
-        } catch (NoSuchAlgorithmException senhaException) {
-            Snackbar.make(coordinatorLayout, "Erro interno ao criptografar a senha",
-                    Snackbar.LENGTH_LONG).show();
         }
 
     }
