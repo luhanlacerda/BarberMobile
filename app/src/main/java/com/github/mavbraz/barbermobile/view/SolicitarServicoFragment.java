@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +23,11 @@ import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 import com.github.mavbraz.barbermobile.model.basicas.Resposta;
 import com.github.mavbraz.barbermobile.model.basicas.Servico;
 
-import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,7 +128,6 @@ public class SolicitarServicoFragment extends Fragment
                 Agendamento agendamento = new Agendamento();
                 agendamento.setHorario(mDateTime.getUnix());
                 agendamento.setServicos(mServicos);
-                Log.d("MAV", agendamento.toString());
 
                 new NegocioAgendamento(mContext).solicitarAgendamento(agendamento).enqueue(
                         new Callback<Resposta>() {
