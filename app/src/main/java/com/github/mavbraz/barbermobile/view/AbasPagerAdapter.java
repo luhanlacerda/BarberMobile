@@ -45,4 +45,12 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
 
         return String.format(Locale.getDefault(), "AGENDAMENTO %d", mAgendamentos.get(position).getId());
     }
+
+    public List<Agendamento> getAgendamentos() {
+        return mAgendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.mAgendamentos = agendamentos;
+    }
 }

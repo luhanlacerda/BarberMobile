@@ -1,7 +1,9 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
+import com.github.mavbraz.barbermobile.utils.AgendamentoTask;
 import com.github.mavbraz.barbermobile.utils.SharedPreferencesManager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,7 +23,9 @@ import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
 
-public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMenuClickListener {
+public class MainActivity extends AppCompatActivity
+        implements DuoMenuView.OnMenuClickListener,
+        AgendaFragment.AgendaFragmentListener {
     private MenuAdapter mMenuAdapter;
     private ViewHolder mViewHolder;
 
@@ -87,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         mSharedPreferencesManager.removeEmail();
 
         startActivity(new Intent(this, LoginActivity.class)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();
     }
 
@@ -129,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
                 wasAdded = goToFragment(new MainFragment(), true, MainFragment.TAG, true);
                 break;
             case 1:
-                wasAdded = goToFragment(AgendaFragment.newInstance(), true, AgendaFragment.TAG, true);
+                wasAdded = goToFragment(new AgendaFragment(), true, AgendaFragment.TAG, true);
                 break;
             case 2:
                 wasAdded = goToFragment(new SolicitarServicoFragment(), true, SolicitarServicoFragment.TAG, true);
@@ -158,6 +164,12 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
             mMenuAdapter.setViewSelected(backStackCount - 1, true);
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void carregarAgendamentos(AbasPagerAdapter adapter) {
+        AgendamentoTask task = new AgendamentoTask(new WeakReference<>((Context) this), adapter);
+        task.execute();
     }
 
     private class ViewHolder {
