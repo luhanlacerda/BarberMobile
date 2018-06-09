@@ -16,8 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceBuilder {
 
+    public static final String BASE_URL = "http://barbermobile.servehttp.com:3000";
+
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://barbermobile.servehttp.com:3000";
 
     public static Retrofit getRetrofitInstance(final Context context) {
         if (retrofit == null) {

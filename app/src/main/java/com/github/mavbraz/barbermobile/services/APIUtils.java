@@ -8,4 +8,8 @@ public class APIUtils {
         return ServiceBuilder.getRetrofitInstance(context).create(UsuarioService.class);
     }
 
+    public static ServicoService getServicoService(Context context) {
+        return ServiceBuilder.getRetrofitInstance(context).create(ServicoService.class);
+    }
+
 }

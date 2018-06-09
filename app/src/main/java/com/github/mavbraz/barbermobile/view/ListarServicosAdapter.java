@@ -13,6 +13,7 @@ import com.github.mavbraz.barbermobile.model.basicas.Servico;
 import java.util.List;
 
 public class ListarServicosAdapter extends BaseAdapter{
+
     private final List<Servico> servicos;
     private final Context context;
 
@@ -23,25 +24,21 @@ public class ListarServicosAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-
         return servicos.size();
     }
 
     @Override
     public Object getItem(int position) {
-
         return servicos.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
         return servicos.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         // Step 1
         Servico servico = servicos.get(position);
         // Step 2
@@ -73,4 +70,5 @@ public class ListarServicosAdapter extends BaseAdapter{
         TextView fieldDescricao;
         TextView fieldValor;
     }
+
 }
