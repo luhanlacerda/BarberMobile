@@ -1,6 +1,7 @@
 package com.github.mavbraz.barbermobile.view;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,10 +41,14 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
     Button btnLogin;
     CoordinatorLayout coordinatorLayout;
 
+    private SharedPreferencesManager mSharedPreferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
+
+        mSharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
 
         edtCpf = findViewById(R.id.edt_cpf);
         edtNome = findViewById(R.id.edt_nome);
@@ -138,6 +143,10 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void registrarCliente() {
+        if (mSharedPreferencesManager.isLogged()) {
+            return;
+        }
+
         try {
             setButtons(false);
             final Cliente cliente = new Cliente();
@@ -146,15 +155,13 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
             cliente.setEmail(edtEmail.getText().toString());
             cliente.setSenha(edtSenha.getText().toString());
 
-            final SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
-
             new NegocioCliente(getApplicationContext()).insert(cliente).enqueue(
                     new Callback<Cliente>() {
                         @Override
-                        public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                        public void onResponse(@NonNull  Call<Cliente> call, @NonNull  Response<Cliente> response) {
                             if (response.isSuccessful() && response.body() != null && response.body().getToken() != null) {
-                                sharedPreferencesManager.saveToken(response.body().getToken());
-                                sharedPreferencesManager.saveEmail(cliente.getEmail());
+                                mSharedPreferencesManager.saveToken(response.body().getToken());
+                                mSharedPreferencesManager.saveEmail(cliente.getEmail());
 
                                 startActivity(new Intent(RegistrarActivity.this, MainActivity.class)
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -172,7 +179,7 @@ public class RegistrarActivity extends AppCompatActivity implements View.OnClick
                         }
 
                         @Override
-                        public void onFailure(Call<Cliente> call, Throwable t) {
+                        public void onFailure(@NonNull Call<Cliente> call, @NonNull Throwable t) {
                             if (t instanceof SocketTimeoutException) {
                                 setError("Erro ao tentar conectar com o servidor");
                             } else {
