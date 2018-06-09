@@ -12,4 +12,8 @@ public class APIUtils {
         return ServiceBuilder.getRetrofitInstance(context).create(ServicoService.class);
     }
 
+    public static AgendamentoService getAgendamentoService(Context context) {
+        return ServiceBuilder.getRetrofitInstance(context).create(AgendamentoService.class);
+    }
+
 }

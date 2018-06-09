@@ -1,4 +1,25 @@
 package com.github.mavbraz.barbermobile.model;
 
-public class DAOCompra {
+import android.content.Context;
+
+import com.github.mavbraz.barbermobile.controller.INegocioAgendamento;
+import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
+import com.github.mavbraz.barbermobile.model.basicas.Resposta;
+import com.github.mavbraz.barbermobile.services.APIUtils;
+
+import retrofit2.Call;
+
+public class DAOAgendamento implements INegocioAgendamento {
+
+    private Context context;
+
+    public DAOAgendamento(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public Call<Resposta> solicitarAgendamento(Agendamento agendamento) {
+        return APIUtils.getAgendamentoService(context).solicitarAgendamento(agendamento);
+    }
+
 }

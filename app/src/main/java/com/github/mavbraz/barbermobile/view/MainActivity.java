@@ -25,7 +25,8 @@ import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
 
 public class MainActivity extends AppCompatActivity
         implements DuoMenuView.OnMenuClickListener,
-        AgendaFragment.AgendaFragmentListener {
+        AgendaFragment.AgendaFragmentListener,
+        SolicitarServicoFragment.SolicitarServicoFragmentListener {
     private MenuAdapter mMenuAdapter;
     private ViewHolder mViewHolder;
 
@@ -170,6 +171,11 @@ public class MainActivity extends AppCompatActivity
     public void carregarAgendamentos(AbasPagerAdapter adapter) {
         AgendamentoTask task = new AgendamentoTask(new WeakReference<>((Context) this), adapter);
         task.execute();
+    }
+
+    @Override
+    public void createSnackBarMessage(String message) {
+        Snackbar.make(mViewHolder.mDuoDrawerLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
     private class ViewHolder {

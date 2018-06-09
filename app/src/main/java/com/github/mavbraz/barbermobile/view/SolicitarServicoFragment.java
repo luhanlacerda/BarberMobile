@@ -19,11 +19,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.github.mavbraz.barbermobile.R;
+import com.github.mavbraz.barbermobile.controller.NegocioAgendamento;
+import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
+import com.github.mavbraz.barbermobile.model.basicas.Resposta;
 import com.github.mavbraz.barbermobile.model.basicas.Servico;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SolicitarServicoFragment extends Fragment
         implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -35,29 +45,40 @@ public class SolicitarServicoFragment extends Fragment
     TextView txtChosenDate;
     TextView txtPreferredTime;
 
-    DateTime dateTime;
-    DateFormat dateFormat;
-    DateFormat timeFormat;
-    DatePickerDialog mDatePickerDialog;
-    TimePickerDialog mTimePickerDialog;
-    Context mContext;
+    private List<Servico> mServicos;
+    private DateTime mDateTime;
+    private DateFormat mDateFormat;
+    private DateFormat mTimeFormat;
+    private DatePickerDialog mDatePickerDialog;
+    private TimePickerDialog mTimePickerDialog;
+    private Context mContext;
+    private SolicitarServicoFragmentListener mListener;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         mContext = context;
+        if (context instanceof SolicitarServicoFragmentListener) {
+            mListener = (SolicitarServicoFragmentListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dateTime = new DateTime();
+        mDateTime = new DateTime();
 
         GregorianCalendar now = new GregorianCalendar();
-        dateFormat = android.text.format.DateFormat.getDateFormat(mContext);
-        timeFormat = android.text.format.DateFormat.getTimeFormat(mContext);
+        mDateFormat = android.text.format.DateFormat.getDateFormat(mContext);
+        mTimeFormat = android.text.format.DateFormat.getTimeFormat(mContext);
 
         mDatePickerDialog = new DatePickerDialog(mContext,this,
                 now.get(GregorianCalendar.YEAR),
@@ -84,6 +105,7 @@ public class SolicitarServicoFragment extends Fragment
         Button btnDatePicker = view.findViewById(R.id.btn_datepicker);
         Button btnTimePicker = view.findViewById(R.id.btn_timepicker);
         Button btnServicos = view.findViewById(R.id.btn_servicos);
+        Button btnSolicitar = view.findViewById(R.id.btn_solicitar);
 
         txtChosenDate.setText(R.string.empty_chosen_date);
         txtPreferredTime.setText(R.string.empty_preferred_time);
@@ -91,6 +113,7 @@ public class SolicitarServicoFragment extends Fragment
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnServicos.setOnClickListener(this);
+        btnSolicitar.setOnClickListener(this);
 
         return view;
     }
@@ -102,31 +125,65 @@ public class SolicitarServicoFragment extends Fragment
         } else if (v.getId() == R.id.btn_timepicker) {
             mTimePickerDialog.show();
         } else if (v.getId() == R.id.btn_servicos) {
-            startActivityForResult(new Intent(mContext, SelecionarServicoActivity.class), REQUEST_CODE_SERVICOS);
+            startActivityForResult(new Intent(getActivity(), SelecionarServicoActivity.class), REQUEST_CODE_SERVICOS);
+        } else if (v.getId() == R.id.btn_solicitar) {
+            if (mDateTime.isValid() && mServicos != null && !mServicos.isEmpty()) {
+                Agendamento agendamento = new Agendamento();
+                agendamento.setHorario(mDateTime.getUnix());
+                agendamento.setServicos(mServicos);
+                Log.d("MAV", agendamento.toString());
+
+                new NegocioAgendamento(mContext).solicitarAgendamento(agendamento).enqueue(
+                        new Callback<Resposta>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Resposta> call, @NonNull Response<Resposta> response) {
+                                if (response.isSuccessful() && response.body() != null && response.body().getMessage() != null) {
+                                    mListener.createSnackBarMessage("Agendamento solicitado com sucesso");
+                                } else {
+                                    mListener.createSnackBarMessage("Falha ao solicitar servico");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<Resposta> call, @NonNull Throwable t) {
+                                if (t instanceof SocketTimeoutException) {
+                                    mListener.createSnackBarMessage("Erro ao tentar conectar com o servidor");;
+                                } else {
+                                    mListener.createSnackBarMessage(t.getMessage());
+                                }
+                            }
+                        }
+                );
+            } else {
+                mListener.createSnackBarMessage("É necessário a escolha da data, hora e serviços");
+            }
         }
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        dateTime.year = year;
-        dateTime.month = month;
-        dateTime.day = dayOfMonth;
-        txtChosenDate.setText(getString(R.string.chosen_date, dateFormat.format(dateTime.getDateCalendar().getTime())));
+        mDateTime.year = year;
+        mDateTime.month = month;
+        mDateTime.day = dayOfMonth;
+        txtChosenDate.setText(getString(R.string.chosen_date, mDateFormat.format(mDateTime.getDateCalendar().getTime())));
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        dateTime.hour = hourOfDay;
-        dateTime.minute = minute;
-        txtPreferredTime.setText(getString(R.string.preferred_time, timeFormat.format(dateTime.getTimeCalendar().getTime())));
+        mDateTime.hour = hourOfDay;
+        mDateTime.minute = minute;
+        txtPreferredTime.setText(getString(R.string.preferred_time, mTimeFormat.format(mDateTime.getTimeCalendar().getTime())));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SERVICOS && resultCode == Activity.RESULT_OK) {
-            List<Servico> servicos = data.getParcelableArrayListExtra(SelecionarServicoActivity.RESULT_SERVICOS);
-            Log.d("MAV", servicos.toString());
+            mServicos = data.getParcelableArrayListExtra(SelecionarServicoActivity.RESULT_SERVICOS);
         }
+    }
+
+    public interface SolicitarServicoFragmentListener {
+        void createSnackBarMessage(String message);
     }
 
     private class DateTime {
@@ -148,14 +205,14 @@ public class SolicitarServicoFragment extends Fragment
             return hour != null && minute != null;
         }
 
-        Long getDateTime() {
+        Long getUnix() {
             GregorianCalendar calendar = getFullCalendar();
 
             if (calendar == null) {
                 return null;
             }
 
-            return calendar.getTimeInMillis();
+            return calendar.getTimeInMillis() / 1000L;
         }
 
         GregorianCalendar getFullCalendar() {
@@ -187,6 +244,5 @@ public class SolicitarServicoFragment extends Fragment
 
             return calendar;
         }
-
     }
 }

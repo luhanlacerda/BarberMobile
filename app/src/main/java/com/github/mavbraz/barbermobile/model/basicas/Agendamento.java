@@ -10,7 +10,6 @@ public class Agendamento implements Parcelable {
     private long horario;
     private Situacao situacao;
     private Pagamento pagamento;
-    private Cliente cliente;
     private List<Servico> servicos;
 
     public Agendamento() {
@@ -21,7 +20,6 @@ public class Agendamento implements Parcelable {
         this.horario = horario;
         this.situacao = situacao;
         this.pagamento = pagamento;
-        this.cliente = cliente;
         this.servicos = servicos;
     }
 
@@ -30,7 +28,6 @@ public class Agendamento implements Parcelable {
         horario = from.readLong();
         situacao = Situacao.valueOf(from.readString());
         pagamento = Pagamento.valueOf(from.readString());
-        cliente = from.readParcelable(Cliente.class.getClassLoader());
         from.readTypedList(servicos, Servico.CREATOR);
     }
 
@@ -57,7 +54,6 @@ public class Agendamento implements Parcelable {
         dest.writeLong(horario);
         dest.writeString(situacao.name());
         dest.writeString(pagamento.name());
-        dest.writeParcelable(cliente, flags);
         dest.writeTypedList(servicos);
     }
 
@@ -93,14 +89,6 @@ public class Agendamento implements Parcelable {
         this.pagamento = pagamento;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     public List<Servico> getServicos() {
         return servicos;
     }
@@ -123,9 +111,6 @@ public class Agendamento implements Parcelable {
         builder.append("\n");
         builder.append("[PAGAMENTO] ");
         builder.append(pagamento);
-        builder.append("\n");
-        builder.append("[CLIENTE] ");
-        builder.append(cliente == null ? cliente : cliente.getNome());
         builder.append("\n");
         builder.append("[SERVICOS]\n");
         if (servicos != null) {
