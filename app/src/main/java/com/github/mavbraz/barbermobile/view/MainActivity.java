@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private MenuAdapter mMenuAdapter;
     private ViewHolder mViewHolder;
 
+    private int selectedMenu;
     private ArrayList<String> mTitles = new ArrayList<>();
     private SharedPreferencesManager mSharedPreferencesManager;
 
@@ -51,10 +52,15 @@ public class MainActivity extends AppCompatActivity
         // Handle drawer actions
         handleDrawer();
 
-        // Show main fragment in container
-        setTitle(mTitles.get(0));
-        mMenuAdapter.setViewSelected(0, true);
-        goToFragment(new MainFragment(), false, MainFragment.TAG, false);
+        if (savedInstanceState == null) {
+            // Show main fragment in container
+            goToFragment(new MainFragment(), MainFragment.TAG, false);
+        } else {
+            selectedMenu = savedInstanceState.getInt("selectedMenu");
+        }
+
+        setTitle(mTitles.get(selectedMenu));
+        mMenuAdapter.setViewSelected(selectedMenu, true);
 
         mSharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
         String email = mSharedPreferencesManager.getEmail();
@@ -64,6 +70,12 @@ public class MainActivity extends AppCompatActivity
         } else {
             this.onFooterClicked();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectedMenu", selectedMenu);
     }
 
     private void handleToolbar() {
@@ -103,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, "onHeaderClicked", Toast.LENGTH_SHORT).show();
     }
 
-    private boolean goToFragment(Fragment fragment, boolean replace, String tag, boolean addToBackStack) {
+    private boolean goToFragment(Fragment fragment, String tag, boolean addToBackStack) {
         if (getSupportFragmentManager().findFragmentByTag(tag) != null &&
                 getSupportFragmentManager().findFragmentByTag(tag).isVisible()) {
             return false;
@@ -115,11 +127,7 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
         }
 
-        if (replace) {
-            transaction.replace(R.id.container, fragment, tag);
-        } else {
-            transaction.add(R.id.container, fragment, tag);
-        }
+        transaction.replace(R.id.container, fragment, tag);
 
         transaction.commit();
 
@@ -133,17 +141,20 @@ public class MainActivity extends AppCompatActivity
         // Navigate to the right fragment
         switch (position) {
             case 0:
-                wasAdded = goToFragment(new MainFragment(), true, MainFragment.TAG, true);
+                wasAdded = goToFragment(new MainFragment(), MainFragment.TAG, true);
                 break;
             case 1:
-                wasAdded = goToFragment(new AgendaFragment(), true, AgendaFragment.TAG, true);
+                wasAdded = goToFragment(new AgendaFragment(), AgendaFragment.TAG, true);
                 break;
             case 2:
-                wasAdded = goToFragment(new SolicitarServicoFragment(), true, SolicitarServicoFragment.TAG, true);
+                wasAdded = goToFragment(new SolicitarServicoFragment(), SolicitarServicoFragment.TAG, true);
                 break;
         }
 
         if (wasAdded) {
+            // Set selected menu
+            selectedMenu = position;
+
             // Set the toolbar title
             setTitle(mTitles.get(position));
 

@@ -19,21 +19,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:tag="content">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:padding="?android:attr/listPreferredItemPaddingRight"/>
+            android:background="@android:color/white" />
     </LinearLayout>
 
 </nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout>
