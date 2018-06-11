@@ -3,7 +3,9 @@ package com.github.mavbraz.barbermobile.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.github.mavbraz.barbermobile.model.BarberSQLHelper;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 import com.github.mavbraz.barbermobile.services.ServiceBuilder;
 import com.github.mavbraz.barbermobile.view.AbasPagerAdapter;
@@ -80,6 +82,13 @@ public class AgendamentoTask extends AsyncTask<Void, Void, List<Agendamento>>{
         super.onPostExecute(agendamentos);
 
         progressDialog.dismiss();
+
+        BarberSQLHelper sqlHelper = new BarberSQLHelper(context.get());
+        if (agendamentos != null) {
+            sqlHelper.sincronizarAgendamentos(agendamentos);
+        } else {
+            agendamentos = sqlHelper.carregarAgendamentos();
+        }
 
         adapter.setAgendamentos(agendamentos);
         adapter.notifyDataSetChanged();

@@ -10,6 +10,6 @@ import retrofit2.http.POST;
 public interface AgendamentoService {
 
   @POST("agendamento/cliente")
-  Call<Resposta> solicitarAgendamento(@Body Agendamento agendamento);
+  Call<Agendamento> solicitarAgendamento(@Body Agendamento agendamento);
 
 }

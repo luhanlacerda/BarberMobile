@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.RegistrarActivity" />
-        <activity android:name=".view.SelecionarServicoActivity" />
         <activity android:name=".view.MainActivity" />
     </application>
 

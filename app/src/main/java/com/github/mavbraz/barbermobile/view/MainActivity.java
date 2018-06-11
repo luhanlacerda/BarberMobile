@@ -1,32 +1,48 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mavbraz.barbermobile.R;
+import com.github.mavbraz.barbermobile.controller.NegocioAgendamento;
+import com.github.mavbraz.barbermobile.controller.NegocioServico;
+import com.github.mavbraz.barbermobile.model.BarberSQLHelper;
+import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
+import com.github.mavbraz.barbermobile.model.basicas.Pagamento;
+import com.github.mavbraz.barbermobile.model.basicas.Situacao;
+import com.github.mavbraz.barbermobile.model.basicas.TodosServicos;
 import com.github.mavbraz.barbermobile.utils.AgendamentoTask;
 import com.github.mavbraz.barbermobile.utils.SharedPreferencesManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements DuoMenuView.OnMenuClickListener,
         AgendaFragment.AgendaFragmentListener,
-        SolicitarServicoFragment.SolicitarServicoFragmentListener {
+        SolicitarAgendamentoFragment.SolicitarServicoFragmentListener {
     private MenuAdapter mMenuAdapter;
     private ViewHolder mViewHolder;
 
@@ -112,7 +128,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onHeaderClicked() {
-        Toast.makeText(this, "onHeaderClicked", Toast.LENGTH_SHORT).show();
     }
 
     private boolean goToFragment(Fragment fragment, String tag, boolean addToBackStack) {
@@ -124,7 +139,7 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (addToBackStack) {
-            transaction.addToBackStack(null);
+            transaction.addToBackStack(tag);
         }
 
         transaction.replace(R.id.container, fragment, tag);
@@ -147,7 +162,7 @@ public class MainActivity extends AppCompatActivity
                 wasAdded = goToFragment(new AgendaFragment(), AgendaFragment.TAG, true);
                 break;
             case 2:
-                wasAdded = goToFragment(new SolicitarServicoFragment(), SolicitarServicoFragment.TAG, true);
+                wasAdded = goToFragment(new SolicitarAgendamentoFragment(), SolicitarAgendamentoFragment.TAG, true);
                 break;
         }
 
@@ -172,8 +187,26 @@ public class MainActivity extends AppCompatActivity
         if (backStackCount == 0) {
             moveTaskToBack(true);
         } else {
-            setTitle(mTitles.get(backStackCount - 1));
-            mMenuAdapter.setViewSelected(backStackCount - 1, true);
+            int position;
+            if (backStackCount > 1) {
+                switch (getSupportFragmentManager().getBackStackEntryAt(backStackCount - 2).getName()) {
+                    case AgendaFragment.TAG:
+                        position = 1;
+                        break;
+                    case SolicitarAgendamentoFragment.TAG:
+                        position = 2;
+                        break;
+                    default:
+                        position = 0;
+                }
+            } else {
+                position = 0;
+            }
+
+            selectedMenu = position;
+
+            setTitle(mTitles.get(position));
+            mMenuAdapter.setViewSelected(position, true);
             super.onBackPressed();
         }
     }
@@ -187,6 +220,75 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void createSnackBarMessage(String message) {
         Snackbar.make(mViewHolder.mDuoDrawerLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void solicitarAgendamento(final Agendamento agendamento) {
+        new NegocioAgendamento(getApplicationContext()).solicitarAgendamento(agendamento).enqueue(
+                new Callback<Agendamento>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Agendamento> call, @NonNull Response<Agendamento> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            agendamento.setId(response.body().getId());
+                            agendamento.setPagamento(Pagamento.PENDENTE);
+                            agendamento.setSituacao(Situacao.MARCADO);
+                            BarberSQLHelper sqlHelper = new BarberSQLHelper(getApplicationContext());
+                            sqlHelper.sincronizarAgendamentos(Arrays.asList(agendamento));
+                            onBackPressed();
+                            createSnackBarMessage("Agendamento solicitado com sucesso");
+                        } else {
+                            createSnackBarMessage("Falha ao solicitar servico");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Agendamento> call, @NonNull Throwable t) {
+                        if (t instanceof SocketTimeoutException) {
+                            createSnackBarMessage("Erro ao tentar conectar com o servidor");
+                        } else {
+                            createSnackBarMessage("Falha ao solicitar servico");
+                        }
+                    }
+                }
+        );
+    }
+
+    @Override
+    public void carregarServicos(final ListarServicosAdapter adapter, final ProgressDialog progressDialog) {
+        new NegocioServico(getApplicationContext()).getAll().enqueue(
+                new Callback<TodosServicos>() {
+                    @Override
+                    public void onResponse(@NonNull Call<TodosServicos> call, @NonNull Response<TodosServicos> response) {
+                        if (response.isSuccessful() && response.body() != null && response.body().getServicos() != null) {
+                            adapter.setServicos(response.body().getServicos());
+                            adapter.notifyDataSetChanged();
+                            progressDialog.dismiss();
+                        } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                createSnackBarMessage(jsonObject.getString("message"));
+                            } catch (NullPointerException | IOException | JSONException ex) {
+                                createSnackBarMessage("Falha ao obter serviços. Tente novamente mais tarde");
+                            }
+
+                            progressDialog.dismiss();
+                            onBackPressed();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<TodosServicos> call, @NonNull Throwable t) {
+                        if (t instanceof SocketTimeoutException) {
+                            createSnackBarMessage("Erro ao tentar conectar com o servidor");
+                        } else {
+                            createSnackBarMessage("Falha ao obter serviços. Tente novamente mais tarde");
+                        }
+
+                        progressDialog.dismiss();
+                        onBackPressed();
+                    }
+                }
+        );
     }
 
     private class ViewHolder {

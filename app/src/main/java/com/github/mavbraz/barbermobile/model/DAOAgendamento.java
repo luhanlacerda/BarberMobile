@@ -18,7 +18,7 @@ public class DAOAgendamento implements INegocioAgendamento {
     }
 
     @Override
-    public Call<Resposta> solicitarAgendamento(Agendamento agendamento) {
+    public Call<Agendamento> solicitarAgendamento(Agendamento agendamento) {
         return APIUtils.getAgendamentoService(context).solicitarAgendamento(agendamento);
     }
 

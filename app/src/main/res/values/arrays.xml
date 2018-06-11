@@ -7,6 +7,6 @@
     <string-array name="menuOptions">
         <item>Home</item>
         <item>Minha agenda</item>
-        <item>Solicitar serviço</item>
+        <item>Solicitar agendamento</item>
     </string-array>
 </resources>

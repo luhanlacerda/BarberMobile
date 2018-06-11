@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.github.mavbraz.barbermobile.model.DAOAgendamento;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
-import com.github.mavbraz.barbermobile.model.basicas.Resposta;
 
 import retrofit2.Call;
 
@@ -17,7 +16,7 @@ public class NegocioAgendamento implements INegocioAgendamento {
     }
 
     @Override
-    public Call<Resposta> solicitarAgendamento(Agendamento agendamento) {
+    public Call<Agendamento> solicitarAgendamento(Agendamento agendamento) {
         return new DAOAgendamento(context).solicitarAgendamento(agendamento);
     }
 
