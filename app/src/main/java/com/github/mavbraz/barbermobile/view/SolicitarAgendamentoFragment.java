@@ -65,6 +65,9 @@ public class SolicitarAgendamentoFragment extends Fragment
         mContext = context;
         if (context instanceof SolicitarServicoFragmentListener) {
             mListener = (SolicitarServicoFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement SolicitarServicoFragmentListener");
         }
     }
 
@@ -183,7 +186,7 @@ public class SolicitarAgendamentoFragment extends Fragment
                     mListarServicosAdapter.getServicosSelecionados() != null && !mListarServicosAdapter.getServicosSelecionados().isEmpty()) {
                 Agendamento agendamento = new Agendamento();
                 agendamento.setHorario(mDateTime.getUnix());
-                agendamento.setServicos(mListarServicosAdapter.getServicos());
+                agendamento.setServicos(new ArrayList<>(mListarServicosAdapter.getServicosSelecionados().values()));
 
                 mListener.solicitarAgendamento(agendamento);
             } else {
