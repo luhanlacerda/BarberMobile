@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -109,7 +111,7 @@ public class SolicitarAgendamentoFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_solicitar_servico, container, false);
+        View view = inflater.inflate(R.layout.fragment_solicitar_agendamento, container, false);
         txtChosenDate = view.findViewById(R.id.chosen_date);
         txtPreferredTime = view.findViewById(R.id.preferred_time);
         listView = view.findViewById(R.id.list_servicos);
@@ -137,7 +139,12 @@ public class SolicitarAgendamentoFragment extends Fragment
         }
         txtTotal.setText(String.format(Locale.getDefault(), "R$%.2f", total));
 
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mListarServicosAdapter.onItemClick(position);
+            }
+        });
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);

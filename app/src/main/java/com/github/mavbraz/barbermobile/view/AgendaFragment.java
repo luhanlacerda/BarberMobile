@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,23 +88,35 @@ public class AgendaFragment extends Fragment implements AgendaTabletLandAdapter.
                 agendaTabletAdapter = new AgendaTabletLandAdapter(context, null,  this);
                 listView.setAdapter(agendaTabletAdapter);
                 mListener.carregarAgendamentos(agendaTabletAdapter);
+                abasPagerAdapter = null;
             } else {
                 abasPagerAdapter = new AbasPagerAdapter(context, getChildFragmentManager(), null);
                 viewPager.setAdapter(abasPagerAdapter);
                 mListener.carregarAgendamentos(abasPagerAdapter);
+                agendaTabletAdapter = null;
             }
         } else {
             if (isSmartphone()) {
                 if (isPortrait()) {
-                    abasPagerAdapter = new AbasPagerAdapter(context, getChildFragmentManager(), agendaTabletAdapter.getAgendamentos());
-                    viewPager.setAdapter(abasPagerAdapter);
-                    viewPager.setCurrentItem(agendaTabletAdapter.getSelected());
-                    agendaTabletAdapter = null;
+                    if (agendaTabletAdapter != null) {
+                        abasPagerAdapter = new AbasPagerAdapter(context, getChildFragmentManager(), agendaTabletAdapter.getAgendamentos());
+                        viewPager.setAdapter(abasPagerAdapter);
+                        viewPager.setCurrentItem(agendaTabletAdapter.getSelected());
+                        agendaTabletAdapter = null;
+                    } else {
+                        abasPagerAdapter = new AbasPagerAdapter(context, getChildFragmentManager(), abasPagerAdapter.getAgendamentos());
+                        int selected = viewPager.getCurrentItem();
+                        viewPager.setAdapter(abasPagerAdapter);
+                        viewPager.setCurrentItem(selected);
+                    }
                 } else {
-                    agendaTabletAdapter = new AgendaTabletLandAdapter(context, abasPagerAdapter.getAgendamentos(),
-                            viewPager.getCurrentItem(), this);
+                    if (abasPagerAdapter != null) {
+                        agendaTabletAdapter = new AgendaTabletLandAdapter(context, abasPagerAdapter.getAgendamentos(),
+                                viewPager.getCurrentItem(), this);
+                        abasPagerAdapter = null;
+                    }
+
                     listView.setAdapter(agendaTabletAdapter);
-                    abasPagerAdapter = null;
                 }
             } else {
                 listView.setAdapter(agendaTabletAdapter);

@@ -63,10 +63,10 @@ public class AgendaTabletLandAdapter extends ArrayAdapter {
         final View view = super.getView(position, convertView, parent);
 
         if (position == selected) {
-            view.setBackgroundColor(Color.GRAY);
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
             listener.carregarFragment(agendamentos.get(selected));
         } else {
-            view.setBackgroundColor(Color.WHITE);
+            view.setBackgroundColor(getContext().getResources().getColor(android.R.color.transparent));
         }
 
         return view;

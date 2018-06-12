@@ -1,6 +1,7 @@
 package com.github.mavbraz.barbermobile.view;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -41,6 +42,11 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return context.getString(R.string.agendamento_n, position + 1);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 
     public List<Agendamento> getAgendamentos() {

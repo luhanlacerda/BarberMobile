@@ -9,10 +9,10 @@
     <string name="btn_link_to_register">Not a customer? Get register in Barber now!</string>
     <string name="btn_link_to_login">Already registered. Login me!</string>
     <string name="btn_login">Login</string>
-    <string name="data_escolhida_vazio">Chosen date: None</string>
-    <string name="data_escolhida">Chosen date: %1$s</string>
-    <string name="horario_escolhido_vazio">Preferred time: None</string>
-    <string name="horario_escolhido">Preferred time: %1$s</string>
+    <string name="data_escolhida_vazio">Date: None</string>
+    <string name="data_escolhida">Date: %1$s</string>
+    <string name="horario_escolhido_vazio">Time: None</string>
+    <string name="horario_escolhido">Time: %1$s</string>
     <string name="barbershop_descricao">The BarberShop is more than a simple barber shop, it is the
         ideal place to relax while we offer the best service available to you!
         Join us at BarberShop, be a lover of beards well cared.</string>

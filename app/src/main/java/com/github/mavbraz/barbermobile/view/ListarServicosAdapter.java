@@ -84,27 +84,10 @@ public class ListarServicosAdapter extends BaseAdapter {
         holder.fieldValor.setText(context.getString(R.string.total, servico.getValor()));
 
         if (servicosSelecionados.containsKey(position)) {
-            convertView.setBackgroundColor(Color.GRAY);
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
         } else {
-            convertView.setBackgroundColor(Color.WHITE);
+            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
         }
-
-        convertView.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!servicosSelecionados.containsKey(position)) {
-                            servicosSelecionados.put(position, servicos.get(position));
-                            v.setBackgroundColor(Color.GRAY);
-                            listener.itemMarcado(servico);
-                        } else {
-                            servicosSelecionados.remove(position);
-                            v.setBackgroundColor(Color.WHITE);
-                            listener.itemDesmarcado(servico);
-                        }
-                    }
-                }
-        );
 
         return convertView;
     }
@@ -121,6 +104,20 @@ public class ListarServicosAdapter extends BaseAdapter {
 
     public Map<Integer, Servico> getServicosSelecionados() {
         return servicosSelecionados;
+    }
+
+    public void onItemClick(int position) {
+        Servico servico = servicos.get(position);
+
+        if (!servicosSelecionados.containsKey(position)) {
+            servicosSelecionados.put(position, servico);
+            listener.itemMarcado(servico);
+        } else {
+            servicosSelecionados.remove(position);
+            listener.itemDesmarcado(servico);
+        }
+
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder{
