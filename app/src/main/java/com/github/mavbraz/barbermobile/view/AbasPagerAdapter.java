@@ -36,7 +36,7 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return String.format(Locale.getDefault(), "AGENDAMENTO %d", mAgendamentos.get(position).getId());
+        return String.format(Locale.getDefault(), "AGENDAMENTO %d", position + 1);
     }
 
     public List<Agendamento> getAgendamentos() {

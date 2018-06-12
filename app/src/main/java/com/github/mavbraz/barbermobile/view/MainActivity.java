@@ -212,9 +212,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void carregarAgendamentos(AbasPagerAdapter adapter) {
+    public void carregarAgendamentos(Object adapter) {
         AgendamentoTask task = new AgendamentoTask(new WeakReference<>((Context) this), adapter);
         task.execute();
+    }
+
+    @Override
+    public void carregarAgendamentoFragment(Agendamento agendamento) {
+        Fragment fragment = AgendamentoFragment.newInstance(agendamento);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container_agendamento, fragment);
+        transaction.commit();
     }
 
     @Override
