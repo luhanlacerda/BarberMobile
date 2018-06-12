@@ -33,13 +33,13 @@ import retrofit2.Response;
 
 public class RegistrarActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
-    EditText edtNome;
-    EditText edtCpf;
-    EditText edtEmail;
-    EditText edtSenha;
-    Button btnRegistrar;
-    Button btnLogin;
-    CoordinatorLayout coordinatorLayout;
+    private EditText edtNome;
+    private EditText edtCpf;
+    private EditText edtEmail;
+    private EditText edtSenha;
+    private Button btnRegistrar;
+    private Button btnLogin;
+    private CoordinatorLayout coordinatorLayout;
 
     private SharedPreferencesManager mSharedPreferencesManager;
 

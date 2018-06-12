@@ -10,7 +10,7 @@ import retrofit2.Call;
 
 public class DAOServico implements INegocioServico {
 
-    private Context context;
+    private final Context context;
 
     public DAOServico(Context context) {
         this.context = context;

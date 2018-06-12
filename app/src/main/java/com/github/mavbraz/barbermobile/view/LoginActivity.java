@@ -31,11 +31,11 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
-    EditText edtEmail;
-    EditText edtSenha;
-    Button btnLogin;
-    Button btnRegistrar;
-    CoordinatorLayout coordinatorLayout;
+    private EditText edtEmail;
+    private EditText edtSenha;
+    private Button btnLogin;
+    private Button btnRegistrar;
+    private CoordinatorLayout coordinatorLayout;
 
     private SharedPreferencesManager mSharedPreferencesManager;
 

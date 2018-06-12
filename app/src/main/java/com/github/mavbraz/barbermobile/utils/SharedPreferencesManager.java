@@ -9,7 +9,7 @@ public class SharedPreferencesManager {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_EMAIL = "email";
 
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public SharedPreferencesManager(Context context){
         this.sharedPreferences = context.getSharedPreferences(APP_NAME, Context.MODE_PRIVATE);

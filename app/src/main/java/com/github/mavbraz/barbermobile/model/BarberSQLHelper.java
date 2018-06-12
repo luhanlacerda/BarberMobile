@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 import com.github.mavbraz.barbermobile.model.basicas.Pagamento;
@@ -13,7 +12,6 @@ import com.github.mavbraz.barbermobile.model.basicas.Servico;
 import com.github.mavbraz.barbermobile.model.basicas.Situacao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -21,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class BarberSQLHelper extends SQLiteOpenHelper {
 

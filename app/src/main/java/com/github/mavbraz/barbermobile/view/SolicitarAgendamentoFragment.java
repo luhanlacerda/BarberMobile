@@ -4,9 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,12 +36,12 @@ public class SolicitarAgendamentoFragment extends Fragment
 
     public static final String TAG = "solicitarAgendamento";
 
-    TextView txtChosenDate;
-    TextView txtPreferredTime;
-    TextView txtQuantidade;
-    TextView txtTotal;
-    ListView listView;
-    AutoCloseBottomSheetBehavior bottomSheet;
+    private TextView txtChosenDate;
+    private TextView txtPreferredTime;
+    private TextView txtQuantidade;
+    private TextView txtTotal;
+    private ListView listView;
+    private AutoCloseBottomSheetBehavior bottomSheet;
 
     private double total;
     private ListarServicosAdapter mListarServicosAdapter;
@@ -124,17 +122,17 @@ public class SolicitarAgendamentoFragment extends Fragment
         txtQuantidade = view.findViewById(R.id.txtQuantidade);
         txtTotal = view.findViewById(R.id.txtTotal);
 
-        txtChosenDate.setText(R.string.empty_chosen_date);
-        txtPreferredTime.setText(R.string.empty_preferred_time);
+        txtChosenDate.setText(R.string.data_escolhida_vazio);
+        txtPreferredTime.setText(R.string.horario_escolhido_vazio);
         if (savedInstanceState == null) {
             txtQuantidade.setText("0");
         } else {
             txtQuantidade.setText(String.valueOf(mListarServicosAdapter.getServicosSelecionados().size()));
             if (mDateTime.getDateCalendar() != null) {
-                txtChosenDate.setText(getString(R.string.chosen_date, mDateFormat.format(mDateTime.getDateCalendar().getTime())));
+                txtChosenDate.setText(getString(R.string.data_escolhida, mDateFormat.format(mDateTime.getDateCalendar().getTime())));
             }
             if (mDateTime.getTimeCalendar() != null) {
-                txtPreferredTime.setText(getString(R.string.preferred_time, mTimeFormat.format(mDateTime.getTimeCalendar().getTime())));
+                txtPreferredTime.setText(getString(R.string.horario_escolhido, mTimeFormat.format(mDateTime.getTimeCalendar().getTime())));
             }
         }
         txtTotal.setText(String.format(Locale.getDefault(), "R$%.2f", total));
@@ -200,14 +198,14 @@ public class SolicitarAgendamentoFragment extends Fragment
         mDateTime.year = year;
         mDateTime.month = month;
         mDateTime.day = dayOfMonth;
-        txtChosenDate.setText(getString(R.string.chosen_date, mDateFormat.format(mDateTime.getDateCalendar().getTime())));
+        txtChosenDate.setText(getString(R.string.data_escolhida, mDateFormat.format(mDateTime.getDateCalendar().getTime())));
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         mDateTime.hour = hourOfDay;
         mDateTime.minute = minute;
-        txtPreferredTime.setText(getString(R.string.preferred_time, mTimeFormat.format(mDateTime.getTimeCalendar().getTime())));
+        txtPreferredTime.setText(getString(R.string.horario_escolhido, mTimeFormat.format(mDateTime.getTimeCalendar().getTime())));
     }
 
     @Override

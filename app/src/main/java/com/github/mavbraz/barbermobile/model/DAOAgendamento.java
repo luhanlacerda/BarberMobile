@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.github.mavbraz.barbermobile.controller.INegocioAgendamento;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
-import com.github.mavbraz.barbermobile.model.basicas.Resposta;
 import com.github.mavbraz.barbermobile.services.APIUtils;
 
 import retrofit2.Call;
 
 public class DAOAgendamento implements INegocioAgendamento {
 
-    private Context context;
+    private final Context context;
 
     public DAOAgendamento(Context context) {
         this.context = context;

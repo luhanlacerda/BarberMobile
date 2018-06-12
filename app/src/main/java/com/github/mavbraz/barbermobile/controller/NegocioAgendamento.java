@@ -9,7 +9,7 @@ import retrofit2.Call;
 
 public class NegocioAgendamento implements INegocioAgendamento {
 
-    private Context context;
+    private final Context context;
 
     public NegocioAgendamento(Context context) {
         this.context = context;

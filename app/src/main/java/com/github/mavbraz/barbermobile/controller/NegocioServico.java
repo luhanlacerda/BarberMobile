@@ -9,7 +9,7 @@ import retrofit2.Call;
 
 public class NegocioServico implements INegocioServico {
 
-    private Context context;
+    private final Context context;
 
     public NegocioServico(Context context) {
         this.context = context;

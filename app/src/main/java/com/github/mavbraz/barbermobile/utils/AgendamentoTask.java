@@ -26,8 +26,8 @@ import java.util.Scanner;
 
 public class AgendamentoTask extends AsyncTask<Void, Void, List<Agendamento>>{
 
-    private WeakReference<Context> context;
-    private Object adapter;
+    private final WeakReference<Context> context;
+    private final Object adapter;
     private ProgressDialog progressDialog;
 
     public AgendamentoTask(WeakReference<Context> context, Object adapter) {

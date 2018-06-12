@@ -11,7 +11,7 @@ import retrofit2.Call;
 
 public class NegocioCliente implements INegocioCliente {
 
-    private Context context;
+    private final Context context;
 
     public NegocioCliente(Context context) {
         this.context = context;

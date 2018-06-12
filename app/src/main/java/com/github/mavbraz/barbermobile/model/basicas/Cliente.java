@@ -2,7 +2,6 @@ package com.github.mavbraz.barbermobile.model.basicas;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.github.mavbraz.barbermobile.utils.BarberUtil;
 

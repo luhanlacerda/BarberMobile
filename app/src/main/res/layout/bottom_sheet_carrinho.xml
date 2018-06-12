@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#aaa"
+    android:backgroundTint="#aaa"
     app:behavior_hideable="false"
     app:behavior_peekHeight="72dp"
     app:layout_behavior="com.github.mavbraz.barbermobile.view.AutoCloseBottomSheetBehavior">

@@ -10,7 +10,7 @@ import retrofit2.Call;
 
 public class DAOCliente implements INegocioCliente {
 
-    private Context context;
+    private final Context context;
 
     public DAOCliente(Context context) {
         this.context = context;

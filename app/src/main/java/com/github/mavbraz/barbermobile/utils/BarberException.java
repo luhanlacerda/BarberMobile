@@ -5,14 +5,14 @@ import java.util.List;
 
 public class BarberException extends Exception {
 
-    public static String NOME = "nome";
-    public static String CPF = "CPF";
-    public static String EMAIL = "email";
-    public static String SENHA = "senha";
+    public static final String NOME = "nome";
+    public static final String CPF = "CPF";
+    public static final String EMAIL = "email";
+    public static final String SENHA = "senha";
 
-    private static String ONLY_LIST = "Apenas permitido com o construtor (boolean)";
-    private static String ONLY_ONCE = "Apenas permitido com o construtor (String, String)";
-    private static String COMPONENT_INVALID = "Não é permitido informar um component nulo ou vazio";
+    private static final String ONLY_LIST = "Apenas permitido com o construtor (boolean)";
+    private static final String ONLY_ONCE = "Apenas permitido com o construtor (String, String)";
+    private static final String COMPONENT_INVALID = "Não é permitido informar um component nulo ou vazio";
 
     private List<BarberException> exceptions;
 

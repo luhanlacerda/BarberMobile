@@ -19,9 +19,9 @@ import java.util.Map;
 
 public class ListarServicosAdapter extends BaseAdapter {
 
+    private final Map<Integer, Servico> servicosSelecionados;
+    private final Context context;
     private List<Servico> servicos;
-    private Map<Integer, Servico> servicosSelecionados;
-    private Context context;
     private ListarServicosAdapterListener listener;
 
     public ListarServicosAdapter(Context context, List<Servico> servicos,

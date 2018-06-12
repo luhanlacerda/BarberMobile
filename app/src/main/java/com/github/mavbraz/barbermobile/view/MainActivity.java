@@ -31,6 +31,7 @@ import java.lang.ref.WeakReference;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity
                             agendamento.setPagamento(Pagamento.PENDENTE);
                             agendamento.setSituacao(Situacao.MARCADO);
                             BarberSQLHelper sqlHelper = new BarberSQLHelper(getApplicationContext());
-                            sqlHelper.sincronizarAgendamentos(Arrays.asList(agendamento));
+                            sqlHelper.sincronizarAgendamentos(Collections.singletonList(agendamento));
                             onBackPressed();
                             createSnackBarMessage("Agendamento solicitado com sucesso");
                         } else {
@@ -300,9 +301,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private class ViewHolder {
-        private DuoDrawerLayout mDuoDrawerLayout;
-        private DuoMenuView mDuoMenuView;
-        private Toolbar mToolbar;
+        private final DuoDrawerLayout mDuoDrawerLayout;
+        private final DuoMenuView mDuoMenuView;
+        private final Toolbar mToolbar;
 
         ViewHolder() {
             mDuoDrawerLayout = findViewById(R.id.drawer);
