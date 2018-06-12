@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.model.BarberSQLHelper;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 import com.github.mavbraz.barbermobile.services.ServiceBuilder;
@@ -39,7 +40,8 @@ public class AgendamentoTask extends AsyncTask<Void, Void, List<Agendamento>>{
     protected void onPreExecute() {
         super.onPreExecute();
 
-        progressDialog = ProgressDialog.show(context.get(),"Agendamentos","Carregando...");
+        progressDialog = ProgressDialog.show(context.get(),
+                context.get().getString(R.string.agendamentos), context.get().getString(R.string.carregando));
     }
 
     @SuppressWarnings("EmptyCatchBlock")

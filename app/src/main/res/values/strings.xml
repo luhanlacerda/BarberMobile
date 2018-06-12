@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">BarberShop</string>
     <string name="nome">Name</string>
     <string name="cpf">CPF</string>
@@ -17,5 +16,32 @@
     <string name="barbershop_descricao">The BarberShop is more than a simple barber shop, it is the
         ideal place to relax while we offer the best service available to you!
         Join us at BarberShop, be a lover of beards well cared.</string>
-
+    <string name="logo">Logo</string>
+    <string name="descricao">Description</string>
+    <string name="sair">Logoff</string>
+    <string name="carrinho">Cart</string>
+    <string name="alterar">Change</string>
+    <string name="solicitar">Request</string>
+    <string name="nome_requerido">Required name</string>
+    <string name="cpf_requerido">Required CPF</string>
+    <string name="cpf_invalido">Invalid CPF</string>
+    <string name="email_requerido">Required Email</string>
+    <string name="email_invalido">Invalid Email</string>
+    <string name="senha_requerida">Required Password</string>
+    <string name="agendamentos">Schedules</string>
+    <string name="carregando">Loading&#8230;</string>
+    <string name="agendamento_n">SCHEDULE %1$d</string>
+    <string name="erro_carr_agendamento">Error loading schedule</string>
+    <string name="horario_atendimento">Service schedule: %1$s</string>
+    <string name="situacao">State: %1$s</string>
+    <string name="pagamento">Payment: %1$s</string>
+    <string name="servicos">Services: %1$s</string>
+    <string name="custo">Total: R$%1$.2f</string>
+    <string name="total">R$%1$.2f</string>
+    <string name="erro_login">Failed to login. Try again</string>
+    <string name="erro_conexao">Unable to connect to server</string>
+    <string name="agendamento_sucesso">Scheduling requested successfully!</string>
+    <string name="erro_agendamento">Failed to request scheduling</string>
+    <string name="erro_servicos">Failed to get services. Try later</string>
+    <string name="erro_registrar">Failed to register. Try again</string>
 </resources>

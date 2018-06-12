@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class AgendaTabletLandAdapter extends ArrayAdapter {
 
@@ -49,7 +49,7 @@ public class AgendaTabletLandAdapter extends ArrayAdapter {
 
     @Override
     public Object getItem(int position) {
-        return String.format(Locale.getDefault(), "AGENDAMENTO %d", position + 1);
+        return getContext().getString(R.string.agendamento_n, position + 1);
     }
 
     @Override

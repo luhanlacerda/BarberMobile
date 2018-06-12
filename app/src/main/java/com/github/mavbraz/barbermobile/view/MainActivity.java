@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -227,7 +226,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void createSnackBarMessage(String message) {
+    public void mostrarMensagem(String message) {
         Snackbar.make(mViewHolder.mDuoDrawerLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
@@ -244,19 +243,15 @@ public class MainActivity extends AppCompatActivity
                             BarberSQLHelper sqlHelper = new BarberSQLHelper(getApplicationContext());
                             sqlHelper.sincronizarAgendamentos(Collections.singletonList(agendamento));
                             onBackPressed();
-                            createSnackBarMessage("Agendamento solicitado com sucesso");
+                            mostrarMensagem(getString(R.string.agendamento_sucesso));
                         } else {
-                            createSnackBarMessage("Falha ao solicitar servico");
+                            mostrarMensagem(getString(R.string.erro_agendamento));
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<Agendamento> call, @NonNull Throwable t) {
-                        if (t instanceof SocketTimeoutException) {
-                            createSnackBarMessage("Erro ao tentar conectar com o servidor");
-                        } else {
-                            createSnackBarMessage("Falha ao solicitar servico");
-                        }
+                        mostrarMensagem(getString(R.string.erro_conexao));
                     }
                 }
         );
@@ -275,9 +270,9 @@ public class MainActivity extends AppCompatActivity
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                                createSnackBarMessage(jsonObject.getString("message"));
+                                mostrarMensagem(jsonObject.getString("message"));
                             } catch (NullPointerException | IOException | JSONException ex) {
-                                createSnackBarMessage("Falha ao obter serviços. Tente novamente mais tarde");
+                                mostrarMensagem(getString(R.string.erro_servicos));
                             }
 
                             progressDialog.dismiss();
@@ -287,12 +282,7 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void onFailure(@NonNull Call<TodosServicos> call, @NonNull Throwable t) {
-                        if (t instanceof SocketTimeoutException) {
-                            createSnackBarMessage("Erro ao tentar conectar com o servidor");
-                        } else {
-                            createSnackBarMessage("Falha ao obter serviços. Tente novamente mais tarde");
-                        }
-
+                        mostrarMensagem(getString(R.string.erro_conexao));
                         progressDialog.dismiss();
                         onBackPressed();
                     }

@@ -14,7 +14,6 @@ import com.github.mavbraz.barbermobile.model.basicas.Servico;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class ListarServicosAdapter extends BaseAdapter {
@@ -82,7 +81,7 @@ public class ListarServicosAdapter extends BaseAdapter {
 
         holder.fieldNome.setText(servico.getNome());
         holder.fieldDescricao.setText(servico.getDescricao());
-        holder.fieldValor.setText(String.format(Locale.getDefault(), "R$%.2f", servico.getValor()));
+        holder.fieldValor.setText(context.getString(R.string.total, servico.getValor()));
 
         if (servicosSelecionados.containsKey(position)) {
             convertView.setBackgroundColor(Color.GRAY);

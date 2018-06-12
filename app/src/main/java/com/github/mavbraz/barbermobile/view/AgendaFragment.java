@@ -88,14 +88,14 @@ public class AgendaFragment extends Fragment implements AgendaTabletLandAdapter.
                 listView.setAdapter(agendaTabletAdapter);
                 mListener.carregarAgendamentos(agendaTabletAdapter);
             } else {
-                abasPagerAdapter = new AbasPagerAdapter(getChildFragmentManager(), null);
+                abasPagerAdapter = new AbasPagerAdapter(context, getChildFragmentManager(), null);
                 viewPager.setAdapter(abasPagerAdapter);
                 mListener.carregarAgendamentos(abasPagerAdapter);
             }
         } else {
             if (isSmartphone()) {
                 if (isPortrait()) {
-                    abasPagerAdapter = new AbasPagerAdapter(getChildFragmentManager(), agendaTabletAdapter.getAgendamentos());
+                    abasPagerAdapter = new AbasPagerAdapter(context, getChildFragmentManager(), agendaTabletAdapter.getAgendamentos());
                     viewPager.setAdapter(abasPagerAdapter);
                     viewPager.setCurrentItem(agendaTabletAdapter.getSelected());
                     agendaTabletAdapter = null;

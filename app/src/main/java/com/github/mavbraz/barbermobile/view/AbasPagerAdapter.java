@@ -1,21 +1,25 @@
 package com.github.mavbraz.barbermobile.view;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class AbasPagerAdapter extends FragmentPagerAdapter {
 
+    private final Context context;
     private List<Agendamento> mAgendamentos;
 
-    public AbasPagerAdapter(FragmentManager fm, List<Agendamento> agendamentos) {
+    public AbasPagerAdapter(Context context, FragmentManager fm, List<Agendamento> agendamentos) {
         super(fm);
+
+        this.context = context;
 
         if (agendamentos != null) {
             this.mAgendamentos = agendamentos;
@@ -36,7 +40,7 @@ public class AbasPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return String.format(Locale.getDefault(), "AGENDAMENTO %d", position + 1);
+        return context.getString(R.string.agendamento_n, position + 1);
     }
 
     public List<Agendamento> getAgendamentos() {

@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/txtValor"
-        android:text="Nome"
+        android:text="@string/nome"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -19,13 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtNome"
         android:layout_below="@+id/txtNome"
-        android:text="Descricao" />
+        android:text="@string/descricao" />
 
     <TextView
         android:id="@+id/txtValor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="R$ 6,00" />
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

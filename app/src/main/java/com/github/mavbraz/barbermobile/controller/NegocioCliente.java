@@ -2,6 +2,7 @@ package com.github.mavbraz.barbermobile.controller;
 
 import android.content.Context;
 
+import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.model.DAOCliente;
 import com.github.mavbraz.barbermobile.model.basicas.Cliente;
 import com.github.mavbraz.barbermobile.utils.BarberException;
@@ -22,23 +23,23 @@ public class NegocioCliente implements INegocioCliente {
         BarberException exception = new BarberException(true);
 
         if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
-            exception.addException(new BarberException("Nome requerido", BarberException.NOME));
+            exception.addException(new BarberException(context.getResources().getString(R.string.nome_requerido), BarberException.NOME));
         }
 
         if (cliente.getCpf() == null || cliente.getCpf().trim().isEmpty()) {
-            exception.addException(new BarberException("CPF requerido", BarberException.CPF));
+            exception.addException(new BarberException(context.getResources().getString(R.string.cpf_requerido), BarberException.CPF));
         } else if (!cliente.getCpf().matches("^[0-9]{11}$")) {
-            exception.addException(new BarberException("CPF inválido", BarberException.CPF));
+            exception.addException(new BarberException(context.getResources().getString(R.string.cpf_invalido), BarberException.CPF));
         }
 
         if (cliente.getEmail() == null || cliente.getEmail().trim().isEmpty()) {
-            exception.addException(new BarberException("E-mail requerido", BarberException.EMAIL));
+            exception.addException(new BarberException(context.getResources().getString(R.string.email_requerido), BarberException.EMAIL));
         } else if (!BarberUtil.isEmailValid(cliente.getEmail())) {
-            exception.addException(new BarberException("E-mail inválido", BarberException.EMAIL));
+            exception.addException(new BarberException(context.getResources().getString(R.string.email_invalido), BarberException.EMAIL));
         }
 
         if (cliente.getSenha() == null || cliente.getSenha().trim().isEmpty()) {
-            exception.addException(new BarberException("Senha requerida", BarberException.SENHA));
+            exception.addException(new BarberException(context.getResources().getString(R.string.senha_requerida), BarberException.SENHA));
         }
 
         if (!exception.getExceptions().isEmpty()) {
@@ -52,13 +53,13 @@ public class NegocioCliente implements INegocioCliente {
         BarberException exception = new BarberException(true);
 
         if (cliente.getEmail() == null || cliente.getEmail().trim().isEmpty()) {
-            exception.addException(new BarberException("E-mail requerido", BarberException.EMAIL));
+            exception.addException(new BarberException(context.getResources().getString(R.string.email_requerido), BarberException.EMAIL));
         } else if (!BarberUtil.isEmailValid(cliente.getEmail())) {
-            exception.addException(new BarberException("E-mail inválido", BarberException.EMAIL));
+            exception.addException(new BarberException(context.getResources().getString(R.string.email_invalido), BarberException.EMAIL));
         }
 
         if (cliente.getSenha() == null || cliente.getSenha().trim().isEmpty()) {
-            exception.addException(new BarberException("Senha requerida", BarberException.SENHA));
+            exception.addException(new BarberException(context.getResources().getString(R.string.senha_requerida), BarberException.SENHA));
         }
 
         if (!exception.getExceptions().isEmpty()) {

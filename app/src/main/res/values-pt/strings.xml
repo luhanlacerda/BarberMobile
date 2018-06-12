@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Side Menu</string>
+    <string name="nome">Nome</string>
+    <string name="cpf">CPF</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="btn_cadastrar">Cadastrar</string>
+    <string name="btn_link_to_register">Não é um cliente? Cadastra-se no Barber agora!</string>
+    <string name="btn_link_to_login">Já sou cadastrado. Efetuar login!</string>
+    <string name="btn_login">Login</string>
+    <string name="data_escolhida_vazio">Data escolhida: Nenhuma</string>
+    <string name="data_escolhida">Data escolhida: %1$s</string>
+    <string name="horario_escolhido_vazio">Horário escolhido: Nenhum</string>
+    <string name="horario_escolhido">Horário escolhido: %1$s</string>
+    <string name="barbershop_descricao">O BarberShop é mais que uma simples barbearia, é o local
+        ideal para você relaxar enquanto nós oferemos o melhor serviço disponível para você!
+        Junte-se a nós do BarberShop, seja um apreciador de barbas bem cuidadas.</string>
+    <string name="descricao">Description</string>
+    <string name="sair">Sair</string>
+    <string name="carrinho">Carrinho</string>
+    <string name="alterar">Alterar</string>
+    <string name="solicitar">Solicitar</string>
+    <string name="nome_requerido">Nome requerido</string>
+    <string name="cpf_requerido">CPF requerido</string>
+    <string name="cpf_invalido">CPF inválido</string>
+    <string name="email_requerido">Email requerido</string>
+    <string name="email_invalido">Email inválido</string>
+    <string name="senha_requerida">Senha requerida</string>
+    <string name="agendamentos">Agendamentos</string>
+    <string name="carregando">Carregando&#8230;</string>
+    <string name="agendamento_n">AGENDAMENTO %1$d</string>
+    <string name="erro_carr_agendamento">Erro ao carregar o agendamento</string>
+    <string name="horario_atendimento">Horário: %1$s</string>
+    <string name="situacao">State: %1$s</string>
+    <string name="pagamento">Pagamento: %1$s</string>
+    <string name="servicos">Serviços: %1$s</string>
+    <string name="erro_login">Falha ao logar. Tente novamente</string>
+    <string name="erro_conexao">Não é possível conectar-se ao servidor</string>
+    <string name="agendamento_sucesso">Agendamento solicitado com sucesso!</string>
+    <string name="erro_agendamento">Falha ao solicitar agendamento</string>
+    <string name="erro_servicos">Falha ao obter serviços. Tente mais tarde</string>
+    <string name="erro_registrar">Falha ao registrar. Tente novamente</string>
+</resources>

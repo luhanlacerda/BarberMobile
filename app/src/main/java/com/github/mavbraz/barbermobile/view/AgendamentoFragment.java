@@ -67,7 +67,7 @@ public class AgendamentoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_error, container, false);
             TextView txtError = view.findViewById(R.id.error);
 
-            txtError.setText("Erro ao carregar o agendamento");
+            txtError.setText(R.string.erro_carr_agendamento);
         } else {
             view = inflater.inflate(R.layout.fragment_agendamento, container, false);
             TextView txtHorario = view.findViewById(R.id.horario);
@@ -78,11 +78,12 @@ public class AgendamentoFragment extends Fragment {
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
-            txtHorario.setText(String.format("Horário: %s", simpleDateFormat.format(new Date(mAgendamento.getHorario() * 1000L))));
-            txtSituacao.setText(String.format("Situação: %s", mAgendamento.getSituacao().name()));
-            txtPagamento.setText(String.format("Pagamento: %s", mAgendamento.getPagamento().name()));
-            txtServicos.setText(String.format("Serviços: %s", TextUtils.join(", ", mostrarServicos())));
-            txtCusto.setText(String.format(Locale.getDefault(), "Custo: R$%.2f", mostrarCusto()));
+            txtHorario.setText(getString(R.string.horario_atendimento,
+                    simpleDateFormat.format(new Date(mAgendamento.getHorario() * 1000L))));
+            txtSituacao.setText(getString(R.string.situacao, mAgendamento.getSituacao().name()));
+            txtPagamento.setText(getString(R.string.pagamento, mAgendamento.getPagamento().name()));
+            txtServicos.setText(getString(R.string.servicos, TextUtils.join(", ", mostrarServicos())));
+            txtCusto.setText(getString(R.string.custo, mostrarCusto()));
         }
 
         return view;

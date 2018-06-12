@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:backgroundTint="#aaa"
+    android:background="#aaa"
     app:behavior_hideable="false"
     app:behavior_peekHeight="72dp"
     app:layout_behavior="com.github.mavbraz.barbermobile.view.AutoCloseBottomSheetBehavior">
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Carrinho"
+            android:text="@string/carrinho"
             android:textColor="#444"
             android:textSize="28dp"
             android:textStyle="bold"
@@ -67,14 +67,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="15dp"
-                android:text="Data: 04/04/2018" />
+                android:textSize="15dp" />
             <Button
                 android:id="@+id/btn_datepicker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Alterar" />
+                android:text="@string/alterar" />
         </LinearLayout>
 
         <LinearLayout
@@ -88,14 +87,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="15dp"
-                android:text="Horário: 13:50" />
+                android:textSize="15dp" />
             <Button
                 android:id="@+id/btn_timepicker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Alterar" />
+                android:text="@string/alterar" />
         </LinearLayout>
 
         <Button
@@ -105,7 +103,7 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_solicitar_agendamento"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="Solicitar"
+            android:text="@string/solicitar"
             android:textColor="#fff" />
     </LinearLayout>
 

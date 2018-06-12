@@ -188,7 +188,7 @@ public class SolicitarAgendamentoFragment extends Fragment
 
                 mListener.solicitarAgendamento(agendamento);
             } else {
-                mListener.createSnackBarMessage("É necessário a escolha da data, hora e serviços");
+                mListener.mostrarMensagem("É necessário a escolha da data, hora e serviços");
             }
         }
     }
@@ -223,7 +223,7 @@ public class SolicitarAgendamentoFragment extends Fragment
     }
 
     public interface SolicitarServicoFragmentListener {
-        void createSnackBarMessage(String message);
+        void mostrarMensagem(String message);
         void solicitarAgendamento(Agendamento agendamento);
         void carregarServicos(ListarServicosAdapter adapter, ProgressDialog progressDialog);
     }

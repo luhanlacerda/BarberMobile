@@ -1,11 +1,11 @@
 package com.github.mavbraz.barbermobile.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,7 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -112,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     JSONObject jsonObject = new JSONObject(response.errorBody().string());
                                     setError(jsonObject.getString("message"));
                                 } catch (NullPointerException|IOException |JSONException ex) {
-                                    setError("Falha ao logar. Tente novamente");
+                                    setError(getString(R.string.erro_login));
                                 } finally {
                                     setButtons(true);
                                 }
@@ -121,12 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         @Override
                         public void onFailure(@NonNull Call<Cliente> call, @NonNull Throwable t) {
-                            if (t instanceof SocketTimeoutException) {
-                                setError("Erro ao tentar conectar com o servidor");
-                            } else {
-                                setError("Falha ao logar. Tente novamente");
-                            }
-
+                            setError(getString(R.string.erro_conexao));
                             setButtons(true);
                         }
                     }

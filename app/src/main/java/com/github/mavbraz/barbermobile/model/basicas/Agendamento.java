@@ -45,7 +45,7 @@ public class Agendamento implements Parcelable {
 
     @Override
     public int describeContents() {
-        return 2;
+        return 0;
     }
 
     @Override
@@ -97,35 +97,4 @@ public class Agendamento implements Parcelable {
         this.servicos = servicos;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[ID] ");
-        builder.append(id);
-        builder.append("\n");
-        builder.append("[HORARIO] ");
-        builder.append(horario);
-        builder.append("\n");
-        builder.append("[SITUACAO] ");
-        builder.append(situacao);
-        builder.append("\n");
-        builder.append("[PAGAMENTO] ");
-        builder.append(pagamento);
-        builder.append("\n");
-        builder.append("[SERVICOS]\n");
-        if (servicos != null) {
-            for (int i = 0; i < servicos.size(); i++) {
-                builder.append("[SERVICO ");
-                builder.append(i);
-                builder.append("] ");
-                builder.append(servicos.get(i).getNome());
-                builder.append("\n");
-            }
-        } else {
-            builder.append("[SERVICO] ");
-            builder.append(servicos);
-            builder.append("\n");
-        }
-        return builder.toString();
-    }
 }
