@@ -12,30 +12,40 @@ import com.github.mavbraz.barbermobile.R;
 import com.github.mavbraz.barbermobile.model.basicas.Servico;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ListarServicosAdapter extends BaseAdapter {
 
     private List<Servico> servicos;
-    private List<Integer> servicosSelecionados;
+    private Map<Integer, Servico> servicosSelecionados;
     private Context context;
     private ListarServicosAdapterListener listener;
 
     public ListarServicosAdapter(Context context, List<Servico> servicos,
-                                 List<Integer> servicosSelecionados, ListarServicosAdapterListener listener) {
+                                 Map<Integer, Servico> servicosSelecionados, ListarServicosAdapterListener listener) {
         this.context = context;
+
         if (servicos != null) {
             this.servicos = servicos;
         } else {
             this.servicos = new ArrayList<>();
         }
+
         if (servicosSelecionados != null) {
             this.servicosSelecionados = servicosSelecionados;
         } else {
-            this.servicosSelecionados = new ArrayList<>();
+            this.servicosSelecionados = new HashMap<>();
         }
-        this.listener = listener;
+
+        if (listener != null) {
+            this.listener = listener;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement ListarServicosAdapterListener");
+        }
     }
 
     @Override
@@ -74,7 +84,7 @@ public class ListarServicosAdapter extends BaseAdapter {
         holder.fieldDescricao.setText(servico.getDescricao());
         holder.fieldValor.setText(String.format(Locale.getDefault(), "R$%.2f", servico.getValor()));
 
-        if (servicosSelecionados.contains(position)) {
+        if (servicosSelecionados.containsKey(position)) {
             convertView.setBackgroundColor(Color.GRAY);
         } else {
             convertView.setBackgroundColor(Color.WHITE);
@@ -84,12 +94,12 @@ public class ListarServicosAdapter extends BaseAdapter {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!servicosSelecionados.contains(position)) {
-                            servicosSelecionados.add(position);
+                        if (!servicosSelecionados.containsKey(position)) {
+                            servicosSelecionados.put(position, servicos.get(position));
                             v.setBackgroundColor(Color.GRAY);
                             listener.itemMarcado(servico);
                         } else {
-                            servicosSelecionados.remove(Integer.valueOf(position));
+                            servicosSelecionados.remove(position);
                             v.setBackgroundColor(Color.WHITE);
                             listener.itemDesmarcado(servico);
                         }
@@ -110,7 +120,7 @@ public class ListarServicosAdapter extends BaseAdapter {
         }
     }
 
-    public List<Integer> getServicosSelecionados() {
+    public Map<Integer, Servico> getServicosSelecionados() {
         return servicosSelecionados;
     }
 

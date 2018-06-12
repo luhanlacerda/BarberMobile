@@ -3,12 +3,12 @@ package com.github.mavbraz.barbermobile.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.github.mavbraz.barbermobile.model.BarberSQLHelper;
 import com.github.mavbraz.barbermobile.model.basicas.Agendamento;
 import com.github.mavbraz.barbermobile.services.ServiceBuilder;
 import com.github.mavbraz.barbermobile.view.AbasPagerAdapter;
+import com.github.mavbraz.barbermobile.view.AgendaTabletLandAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,10 +27,10 @@ import java.util.Scanner;
 public class AgendamentoTask extends AsyncTask<Void, Void, List<Agendamento>>{
 
     private WeakReference<Context> context;
-    private AbasPagerAdapter adapter;
+    private Object adapter;
     private ProgressDialog progressDialog;
 
-    public AgendamentoTask(WeakReference<Context> context, AbasPagerAdapter adapter) {
+    public AgendamentoTask(WeakReference<Context> context, Object adapter) {
         this.context = context;
         this.adapter = adapter;
     }
@@ -90,8 +90,16 @@ public class AgendamentoTask extends AsyncTask<Void, Void, List<Agendamento>>{
             agendamentos = sqlHelper.carregarAgendamentos();
         }
 
-        adapter.setAgendamentos(agendamentos);
-        adapter.notifyDataSetChanged();
+        if (adapter instanceof AbasPagerAdapter) {
+            AbasPagerAdapter abasPagerAdapter = (AbasPagerAdapter) adapter;
+            abasPagerAdapter.setAgendamentos(agendamentos);
+            abasPagerAdapter.notifyDataSetChanged();
+        } else {
+            AgendaTabletLandAdapter agendaTabletAdapter = (AgendaTabletLandAdapter) adapter;
+            agendaTabletAdapter.setAgendamentos(agendamentos);
+            agendaTabletAdapter.notifyDataSetChanged();
+        }
+
     }
 
 }
